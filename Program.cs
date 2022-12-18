@@ -88,8 +88,6 @@ namespace GameEngine
 
             // Render the game
             Render();
-            Invalidate();
-            //this.InvokePaint(this, new PaintEventArgs(this.g, this.DisplayRectangle));
 
             // Check for input events
             ProcessInput();
@@ -106,8 +104,7 @@ namespace GameEngine
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            // If there is an image and it has a location, 
-            // paint it when the Form is repainted.
+            // Paint the buffer image when reloaded
             base.OnPaint(e);
             e.Graphics.DrawImage(_bufferImage, 0, 0, _bufferImage.Width, _bufferImage.Height);
         }
@@ -133,8 +130,8 @@ namespace GameEngine
             // Draw on the buffer image
             using (Graphics g = Graphics.FromImage(_bufferImage))
             {
-                //g.DrawImage(renderSprite.Image, new Point((int)playerTransform.Position.X, (int)playerTransform.Position.Y));
                 g.DrawImage(renderSprite.Image, new Point((int)playerTransform.Position.X, (int)playerTransform.Position.Y));
+                // TODO Add a render queue here
             }
 
             // Invalidate the form to trigger a repaint
