@@ -32,7 +32,6 @@ namespace GameEngine
         Graphics g;
         private Image _bufferImage;
 
-
         public GameEngine()
         {
             // Set the size and title of the window

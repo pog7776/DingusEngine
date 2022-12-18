@@ -16,7 +16,6 @@ namespace GameEngine.StandardComponents
         }
         private Image _image;
 
-
         public Sprite()
         {
             this.Name = "Sprite";
@@ -25,7 +24,7 @@ namespace GameEngine.StandardComponents
         // TODO create a function that is called each frame or something
         public override void Update()
         {
-
+            // TODO Render Logic
         }
     }
 }

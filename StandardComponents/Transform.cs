@@ -24,7 +24,6 @@ namespace GameEngine.StandardComponents
         }
         private Vector3 _rotation;
 
-
         public Transform()
         {
             Position = new Vector3(0, 0, 0);
