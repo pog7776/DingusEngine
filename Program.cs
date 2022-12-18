@@ -52,6 +52,7 @@ namespace GameEngine
             Start();
         }
 
+        // TODO Remove later
         private Sprite renderSprite;
         private Transform playerTransform;
         private Vector2 dimensions;
@@ -59,12 +60,15 @@ namespace GameEngine
         // Before game starts
         private void Start()
         {
-            // Test Actor
+            #region Test Actor
+
             TestActor ta = new TestActor();
             actors.Add(ta);
             playerTransform = ta.GetComponent<Transform>();
             renderSprite = ta.GetComponent<Sprite>();
             dimensions = new Vector2(renderSprite.Image.Width, renderSprite.Image.Height);
+
+            #endregion
 
             // Init Graphics
             g = this.CreateGraphics();
@@ -97,6 +101,7 @@ namespace GameEngine
         private void Update(float elapsedTime)
         {
             // Update the game logic here
+            // TODO handle a list of Update actions owned by actors here
 
             Point cursorPos = this.PointToClient(Cursor.Position);
             playerTransform.Position = new Vector3(cursorPos.X - (dimensions.X / 2), cursorPos.Y - (dimensions.Y / 2), 0);
@@ -151,6 +156,7 @@ namespace GameEngine
         }
     }
 
+    // TODO handle this? IDK put it in it's own file or something?
     public enum GameState
     {
         Running,
