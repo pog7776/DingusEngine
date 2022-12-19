@@ -16,8 +16,13 @@ namespace DingusEngine.Input
         public Dictionary<MouseButtons, IInputBinding> MouseBindings => _mouseBindings;
         private Dictionary<MouseButtons, IInputBinding> _mouseBindings;
 
-        int frame = 0;
-        int pollRate = 1;
+        private int frame = 0;
+        private int _pollRate = 1;
+        public int PollRate
+        {
+            get => _pollRate;
+            set => _pollRate = value;
+        }
 
         public EInputManager()
         {
@@ -46,7 +51,7 @@ namespace DingusEngine.Input
             HandleMouse();
             HandleKeyboard();
             frame++;
-            if(frame > pollRate)
+            if(frame > PollRate)
             {
                 frame = 0;
             }
@@ -73,7 +78,7 @@ namespace DingusEngine.Input
             }
 
             // Call held actions
-            if (frame >= pollRate)
+            if (frame >= PollRate)
             {
                 //foreach (Key k in Enum.GetValues(typeof(Key)))
                 foreach (KeyValuePair<MouseButtons, IInputBinding> mb in MouseBindings)
@@ -107,7 +112,7 @@ namespace DingusEngine.Input
             }
 
             // Call held actions
-            if (frame >= pollRate)
+            if (frame >= PollRate)
             {
                 //foreach (Key k in Enum.GetValues(typeof(Key)))
                 foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
