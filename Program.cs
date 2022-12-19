@@ -11,8 +11,12 @@ using Microsoft.VisualBasic.Devices;
 using System.Runtime.InteropServices;
 using WriteLine = System.Diagnostics.Debug;
 using System.Security.Policy;
-using GameEngine.Actors;
-using GameEngine.GameActor;
+using DingusEngine.Actors;
+using DingusEngine.GameActor;
+using DingusEngine.Input;
+using System.Threading;
+using System.Windows.Threading;
+using System.Windows.Input;
 
 namespace DingusEngine
 {
@@ -21,7 +25,8 @@ namespace DingusEngine
         public static EGameEngine Engine = null;
 
         // Timer to control the game loop
-        private Timer gameTimer;
+        //private Timer gameTimer;
+        private DispatcherTimer gameTimer;
 
         // The current game state
         private GameState gameState;
@@ -33,8 +38,8 @@ namespace DingusEngine
         public float DeltaTime { get { return _deltaTime; } }
         private float _deltaTime;
 
-        //private List<Actor> actors = new List<Actor>();
         public EActorManager ActorManager;
+        public EInputManager InputManager;
 
         Graphics g;
         private Image _bufferImage;
@@ -44,6 +49,7 @@ namespace DingusEngine
         {
             Engine = this;
             ActorManager = new EActorManager();
+            InputManager = new EInputManager();
             // Set the size and title of the window
             this.ClientSize = new Size(800, 600);
             this.Text = "Dingus Engine";
@@ -64,8 +70,10 @@ namespace DingusEngine
             frameRate = 60;
 
             // Initialize the timer
-            gameTimer = new Timer();
-            gameTimer.Interval = 1000 / frameRate;
+            //gameTimer = new Timer();
+            gameTimer = new System.Windows.Threading.DispatcherTimer();
+            //gameTimer.Interval = 1000 / frameRate;
+            gameTimer.Interval = new TimeSpan(1000 / frameRate);
             gameTimer.Tick += new EventHandler(OnTick);
             gameTimer.Start();
 
@@ -83,6 +91,12 @@ namespace DingusEngine
 
             TextActor txa = ActorManager.CreateActor<TextActor>();
 
+            InputManager.RegisterBinding(Key.Space, delegate
+            {
+                ASprite s = ta.GetComponent<ASprite>();
+                s.Visible = !s.Visible;
+            });
+
             #endregion
         }
 
@@ -90,7 +104,7 @@ namespace DingusEngine
         private void OnTick(object sender, EventArgs e)
         {
             // Update the elapsed time
-            _deltaTime = (float)gameTimer.Interval / 1000;
+            _deltaTime = (float) gameTimer.Interval.TotalMilliseconds;
 
             // Update the game state
             Update(DeltaTime);
@@ -160,9 +174,16 @@ namespace DingusEngine
         private void ProcessInput()
         {
             // Check for input events here
+            Dispatcher.CurrentDispatcher.Invoke((Action)delegate
+            {
+                InputManager.Update();
+            });
+
+            //DispatcherHelper.CheckBeginInvokeOnUI(Action action)
         }
 
         // The main entry point for the application
+        [STAThread]
         static void Main()
         {
             Application.Run(new EGameEngine());

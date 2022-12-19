@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.Rendering
+namespace DingusEngine.Rendering
 {
     internal class TextRenderTask : IRenderTask
     {

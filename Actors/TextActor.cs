@@ -1,7 +1,7 @@
 ﻿using DingusEngine.GameActor;
 using DingusEngine.Rendering;
 using DingusEngine.StandardComponents;
-using GameEngine.Rendering;
+using DingusEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.Actors
+namespace DingusEngine.Actors
 {
     internal class TextActor : Actor
     {

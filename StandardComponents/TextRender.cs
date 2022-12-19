@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DingusEngine.GameComponent;
 using DingusEngine.Rendering;
-using GameEngine.Rendering;
+using DingusEngine.Rendering;
 
 namespace DingusEngine.StandardComponents
 {

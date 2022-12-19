@@ -32,7 +32,7 @@ namespace DingusEngine.Actors
 
             if (sprite.Scale.X <= 0.3f)
             {
-                sprite.Scale += new Vector2(Engine.DeltaTime / 10);
+                sprite.Scale += new Vector2(Engine.DeltaTime);
             }
 
             if(tick == 60*5)

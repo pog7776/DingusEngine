@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.GameActor
+namespace DingusEngine.GameActor
 {
     internal interface IActorManager
     {
