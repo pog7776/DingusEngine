@@ -21,28 +21,28 @@ namespace GameEngine.GameActor
 
         public T? CreateActor<T>() where T : new()
         {
-            if (Actors != null)
-            {
-                if (typeof(T).GetInterfaces().Contains(typeof(IActor)))
-                {
-                    IActor? actor = new T() as IActor;
+            _actors ??= new List<IActor>();
 
-                    if (actor != null)
-                    {
-                        AddActor(actor);
-                        //Actor.Start();
-                        return (T)actor;
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Type: " + typeof(T) + " is not an IActor.");
-                    }
+            if (typeof(T).GetInterfaces().Contains(typeof(IActor)))
+            {
+                IActor? actor = new T() as IActor;
+
+                if (actor != null)
+                {
+                    AddActor(actor);
+                    //Actor.Start();
+                    return (T)actor;
                 }
                 else
                 {
                     throw new ArgumentException("Type: " + typeof(T) + " is not an IActor.");
                 }
             }
+            else
+            {
+                throw new ArgumentException("Type: " + typeof(T) + " is not an IActor.");
+            }
+
             return default;
         }
 

@@ -13,4 +13,8 @@
     <Content Include="Assets\Icons\Dingus.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
 </Project>

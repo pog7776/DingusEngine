@@ -50,7 +50,7 @@ namespace DingusEngine.GameActor
 
         public abstract void Update();
 
-        public T? AddComponent<T>(IComponent component)
+        public T AddComponent<T>(IComponent component)
         {
             if (component != null)
             {
@@ -63,38 +63,35 @@ namespace DingusEngine.GameActor
             else
             {
                 Debug.WriteLine("Component added to " + this.Name + " is null");
+                throw new ArgumentException("Component type error");
             }
-
-            return default;
         }
 
-        public T? AddComponent<T>() where T : new()
+        public T AddComponent<T>() where T : new()
         {
-            if (Components != null)
-            {
-                if (typeof(T).GetInterfaces().Contains(typeof(IComponent)))
-                {
-                    IComponent? component = new T() as IComponent;
+            _components ??= new List<IComponent>();
 
-                    if (component != null)
-                    {
-                        component.Owner = this;
-                        Components.Add(component);
-                        Debug.WriteLine(component.Name + " added to " + this.Name);
-                        component.Start();
-                        return (T) component;
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Type: " + typeof(T) + " is not an IComponent.");
-                    }
+            if (typeof(T).GetInterfaces().Contains(typeof(IComponent)))
+            {
+                IComponent? component = new T() as IComponent;
+
+                if (component != null)
+                {
+                    component.Owner = this;
+                    Components.Add(component);
+                    Debug.WriteLine(component.Name + " added to " + this.Name);
+                    component.Start();
+                    return (T) component;
                 }
                 else
                 {
                     throw new ArgumentException("Type: " + typeof(T) + " is not an IComponent.");
                 }
             }
-            return default;
+            else
+            {
+                throw new ArgumentException("Type: " + typeof(T) + " is not an IComponent.");
+            }
         }
         
         public void RemoveComponent(IComponent component)
@@ -141,7 +138,7 @@ namespace DingusEngine.GameActor
             }
         }
 
-        public T? GetComponent<T>()
+        public T GetComponent<T>()
         {
             if (typeof(T).GetInterfaces().Contains(typeof(IComponent)))
             {
@@ -155,13 +152,14 @@ namespace DingusEngine.GameActor
                 else
                 {
                     Debug.WriteLine("No component of type: " + typeof(T) + " present on Actor: " + this.Name);
+                    return default;
                 }
             }
             else
             {
                 Debug.WriteLine(typeof(T) + " is not an IComponent.");
+                throw new ArgumentException("Type: " + typeof(T) + " is not an IComponent.");
             }
-            return default;
         }
     }
 }
