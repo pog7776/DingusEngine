@@ -12,6 +12,8 @@ namespace DingusEngine.Input
     {
         public Dictionary<Key, IInputBinding> InputBindings => _inputBindings;
         private Dictionary<Key, IInputBinding> _inputBindings;
+        int frame = 0;
+        int pollRate = 6;
 
         public EInputManager()
         {
@@ -28,14 +30,19 @@ namespace DingusEngine.Input
 
         public void Update()
         {
-            //foreach (Key k in Enum.GetValues(typeof(Key)))
-            foreach(KeyValuePair<Key, IInputBinding> k in InputBindings)
+            if (frame >= pollRate)
             {
-                if(Keyboard.IsKeyDown(k.Key))
+                //foreach (Key k in Enum.GetValues(typeof(Key)))
+                foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
                 {
-                    InputBindings[k.Key].Actions.ForEach(x => x?.Invoke());
+                    if (Keyboard.IsKeyDown(k.Key))
+                    {
+                        InputBindings[k.Key].Actions.ForEach(x => x?.Invoke());
+                    }
                 }
+                frame = 0;
             }
+            frame++;
         }
 
         public void RegisterBinding(Key k, Action action)

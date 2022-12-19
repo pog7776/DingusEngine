@@ -11,8 +11,10 @@
 - Particle effects!!
 - ~~Input manager~~
 - Need to handle mouse input
-- Need to slow input so it doesnt take a million inputs from one key a second
+- ~~Need to slow input so it doesnt take a million inputs from one key a second~~
+- Handle on key down and on key up rather than jsut checking if pressed, causing loop.
 - Can I get 3d to work? I don't know. I have no idea what I'm doing. Where am I?
 - Screenspace vs worldspace
 - UI classes
 - Comment
+- Move this to a trello board
