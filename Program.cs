@@ -17,6 +17,7 @@ using DingusEngine.Input;
 using System.Threading;
 using System.Windows.Threading;
 using System.Windows.Input;
+using GameEngine.Actors;
 
 namespace DingusEngine
 {
@@ -53,7 +54,7 @@ namespace DingusEngine
             // Set the size and title of the window
             this.ClientSize = new Size(800, 600);
             this.Text = "Dingus Engine";
-            this.Resize += OnResize;
+            this.Resize += new EventHandler(OnResize);
 
             // Init Graphics
             g = this.CreateGraphics();
@@ -91,6 +92,8 @@ namespace DingusEngine
             MovingActor ma = ActorManager.CreateActor<MovingActor>();
 
             TextActor txa = ActorManager.CreateActor<TextActor>();
+
+            Player player = ActorManager.CreateActor<Player>();
 
             ASprite s = ta.GetComponent<ASprite>();
             ATransform tf = ta.GetComponent<ATransform>();
@@ -154,6 +157,7 @@ namespace DingusEngine
         private void OnResize(object sender, EventArgs e)
         {
             // Form has been resized
+            // TODO Crashes on minimize
             _bufferImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
         }
 

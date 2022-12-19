@@ -15,9 +15,10 @@ namespace DingusEngine.Input
         public Key KeyBind => _keyBind;
         private Key _keyBind;
 
-        //EGameEngine engine = EGameEngine.Engine.MouseWheel;
-        // TODO Also has stuff for KeyDown down
-        //EGameEngine engine = EGameEngine.Engine.KeyDown
+        // TODO The engine has this stuff!!
+        // EGameEngine engine = EGameEngine.Engine;
+        // engine.MouseWheel += OnMouseWheel;
+        // engine.KeyDown += OnKeyDown;
         // wtf
         // Check out Program OnResize and how that is bound in the constructor if you forget - you silly billy!
 
@@ -30,7 +31,7 @@ namespace DingusEngine.Input
         private List<Action> _onKeyHeld;
 
         // All actions to invoke on key down
-        public List<Action> OnKeyDownActions => _onKeyDown; //?? (_onKeyDown = new List<Action>());
+        public List<Action> OnKeyDownActions => _onKeyDown; //?? (_onKeyDown = new List<Action>()); this is cool so im keeping it here for later
         private List<Action> _onKeyDown;
 
         // All actions to invoke on key up

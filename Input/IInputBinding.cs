@@ -25,6 +25,7 @@ namespace DingusEngine.Input
         public void UnregisterOnKeyDown(Action action);
         public void OnKeyUp(Action action);
         public void UnregisterOnKeyUp(Action action);
+
         public void CallActions();
         public void UpdatePressed(bool state);
     }

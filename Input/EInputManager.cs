@@ -17,7 +17,7 @@ namespace DingusEngine.Input
         private Dictionary<MouseButtons, IInputBinding> _mouseBindings;
 
         int frame = 0;
-        int pollRate = 6;
+        int pollRate = 1;
 
         public EInputManager()
         {
@@ -45,6 +45,11 @@ namespace DingusEngine.Input
         {
             HandleMouse();
             HandleKeyboard();
+            frame++;
+            if(frame > pollRate)
+            {
+                frame = 0;
+            }
         }
 
         private void HandleMouse()
@@ -78,9 +83,7 @@ namespace DingusEngine.Input
                         MouseBindings[mb.Key].OnKeyHeldActions.ForEach(x => x?.Invoke());
                     }
                 }
-                frame = 0;
             }
-            frame++;
         }
 
         private void HandleKeyboard()
@@ -114,9 +117,7 @@ namespace DingusEngine.Input
                         InputBindings[k.Key].OnKeyHeldActions.ForEach(x => x?.Invoke());
                     }
                 }
-                frame = 0;
             }
-            frame++;
         }
 
         // Keyboard Binding
