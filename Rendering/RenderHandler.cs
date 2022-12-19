@@ -22,11 +22,18 @@ namespace DingusEngine.Rendering
         public void AddTask(ERenderTask task)
         {
             _renderTasks.Add(task);
+            RefreshTasks();
         }
 
         public void RemoveTask(ERenderTask task)
         {
             _renderTasks.Remove(task);
+            RefreshTasks();
+        }
+
+        public void RefreshTasks()
+        {
+            _renderTasks = _renderTasks.OrderBy(x => x.Transform.Position.Z).ToList();
         }
     }
 }

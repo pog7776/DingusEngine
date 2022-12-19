@@ -10,7 +10,7 @@ public interface IComponent
 {
 	public string Name { get; set; }
 	public IActor Owner { get; set; }
-    protected GameEngine Engine { get; }
+    protected EGameEngine Engine { get; }
 
     public abstract void Start();
 	public abstract void Update();

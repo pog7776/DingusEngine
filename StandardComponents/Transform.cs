@@ -13,7 +13,20 @@ namespace DingusEngine.StandardComponents
         public Vector3 Position
         {
             get { return _position;  }
-            set { _position = value; }
+            set {
+                bool refresh = false;
+                if (_position.Z != value.Z)
+                {
+                    refresh = true;
+                }
+
+                _position = value;
+
+                if (refresh)
+                {
+                    Engine.RenderHandler.RefreshTasks();
+                }
+            }
         }
         private Vector3 _position;
 

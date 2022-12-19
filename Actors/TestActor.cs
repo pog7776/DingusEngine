@@ -27,7 +27,7 @@ namespace DingusEngine.Actors
 
         public override void Update()
         {
-            Point cursorPos = GameEngine.Engine.PointToClient(Cursor.Position);
+            Point cursorPos = EGameEngine.Engine.PointToClient(Cursor.Position);
             Transform.Position = new Vector3(cursorPos.X - (sprite.Dimensions.X / 2), cursorPos.Y - (sprite.Dimensions.Y / 2), 0);
 
             if (sprite.Scale.X <= 0.3f)
@@ -37,7 +37,8 @@ namespace DingusEngine.Actors
 
             if(tick == 60*5)
             {
-                sprite.Visible = false;
+                //sprite.Visible = false;
+                Transform.Position = new Vector3(Transform.Position.X, Transform.Position.Y, 1);
             }
             tick++;
         }

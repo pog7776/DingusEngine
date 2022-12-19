@@ -63,10 +63,9 @@ namespace DingusEngine.StandardComponents
             }
         }
 
-        // TODO create a function that is called each frame or something
         public override void Update()
         {
-            
+            // TODO create a function that is called each frame or something
         }
 
         public void SetSprite(string path)

@@ -11,13 +11,13 @@ using Microsoft.VisualBasic.Devices;
 using System.Runtime.InteropServices;
 using WriteLine = System.Diagnostics.Debug;
 using System.Security.Policy;
+using GameEngine.Actors;
 
 namespace DingusEngine
 {
-    public class GameEngine : Form
+    public class EGameEngine : Form
     {
-
-        public static GameEngine Engine = null;
+        public static EGameEngine Engine = null;
 
         // Timer to control the game loop
         private Timer gameTimer;
@@ -38,7 +38,7 @@ namespace DingusEngine
         private Image _bufferImage;
         public ERenderHandler RenderHandler;
 
-        public GameEngine()
+        public EGameEngine()
         {
             Engine = this;
             // Set the size and title of the window
@@ -72,10 +72,13 @@ namespace DingusEngine
         // Before game starts
         private void Start()
         {
-            #region Test Actor
+            #region Test Actors
 
             TestActor ta = new TestActor();
             actors.Add(ta);
+
+            MovingActor ma = new MovingActor();
+            actors.Add(ma);
 
             #endregion
         }
@@ -143,9 +146,11 @@ namespace DingusEngine
                 foreach(ERenderTask task in RenderHandler.Tasks)
                 {
                     ASprite s = task.Sprite;
-                    if (s != null)
+                    if (s != null || s.Image != null)
                     {
-                        g.DrawImage(s.Image, task.Transform.Position.X, task.Transform.Position.Y, s.Scale.X * s.Image.Width, s.Scale.Y * s.Image.Height);
+                        g.DrawImage(s.Image,
+                            task.Transform.Position.X,task.Transform.Position.Y,
+                            s.Scale.X * s.Image.Width, s.Scale.Y * s.Image.Height);
                     }
                     else
                     {
@@ -167,7 +172,7 @@ namespace DingusEngine
         // The main entry point for the application
         static void Main()
         {
-            Application.Run(new GameEngine());
+            Application.Run(new EGameEngine());
         }
     }
 

@@ -33,18 +33,18 @@ namespace DingusEngine.GameActor
         private List<IComponent> _components;
 
         // The GameEngine class
-        public GameEngine Engine
+        public EGameEngine Engine
         {
             get { return _engine; }
         }
-        private GameEngine _engine;
+        private EGameEngine _engine;
 
         // Constructor
         public Actor()
         {
             _components = new List<IComponent>();
             Transform = AddComponent<ATransform>();
-            _engine = GameEngine.Engine;
+            _engine = EGameEngine.Engine;
         }
 
         // TODO register update with a list of update actions in the program.cs file

@@ -3,6 +3,7 @@ using DingusEngine.StandardComponents;
 using DingusEngine;
 using System;
 using System.Numerics;
+using GameEngine = DingusEngine.EGameEngine;
 
 /// <summary>
 /// Summary description for Class1
@@ -12,7 +13,7 @@ public interface IActor
 	public ATransform? Transform { get; set; }
 	public string Name { get; set; }
 	public List<IComponent> Components { get; }
-	protected GameEngine Engine { get; }
+	protected EGameEngine Engine { get; }
 
 	public abstract void Update();
 

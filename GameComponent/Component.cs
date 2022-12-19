@@ -22,16 +22,16 @@ namespace DingusEngine.GameComponent
         }
         private IActor _owner;
 
-        public GameEngine Engine
+        public EGameEngine Engine
         {
             get { return _engine; }
         }
-        private GameEngine _engine;
+        private EGameEngine _engine;
 
         public Component()
         {
             // Get the GameEngine
-            _engine = GameEngine.Engine;
+            _engine = EGameEngine.Engine;
         }
 
         public abstract void Start();
