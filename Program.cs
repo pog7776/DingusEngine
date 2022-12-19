@@ -91,10 +91,23 @@ namespace DingusEngine
 
             TextActor txa = ActorManager.CreateActor<TextActor>();
 
-            InputManager.RegisterBinding(Key.Space, delegate
+
+            ASprite s = ta.GetComponent<ASprite>();
+            ATransform tf = ta.GetComponent<ATransform>();
+
+            //InputManager.OnKeyDown(Key.Space, delegate
+            InputManager.OnKeyDown(MouseButtons.Left, delegate
             {
-                ASprite s = ta.GetComponent<ASprite>();
-                s.Visible = !s.Visible;
+                //s.Visible = !s.Visible;
+                s.SetScale(1f);
+                //tf.Position = new Vector3(tf.Position.X, tf.Position.Y, -10);
+            });
+
+            //InputManager.OnKeyUp(Key.Space, delegate
+            InputManager.OnKeyUp(MouseButtons.Left, delegate
+            {
+                s.SetScale(0.3f);
+                //tf.Position = new Vector3(tf.Position.X, tf.Position.Y, 20);
             });
 
             #endregion

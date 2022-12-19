@@ -12,7 +12,21 @@ namespace DingusEngine.Input
         public Dictionary<Key, IInputBinding> InputBindings { get; }
 
         public void Update();
-        public void RegisterBinding(Key k, Action action);
-        public void UnregisterBinding(Key k, Action action);
+
+        // Keyboard Binding
+        public void OnKeyHeld(Key k, Action action);
+        public void UnregisterOnKeyHeld(Key k, Action action);
+        public void OnKeyDown(Key k, Action action);
+        public void UnregisterOnKeyDown(Key k, Action action);
+        public void OnKeyUp(Key k, Action action);
+        public void UnregisterOnKeyUp(Key k, Action action);
+
+        // Mouse Binding
+        public void OnKeyHeld(MouseButtons mb, Action action);
+        public void UnregisterOnKeyHeld(MouseButtons mb, Action action);
+        public void OnKeyDown(MouseButtons mb, Action action);
+        public void UnregisterOnKeyDown(MouseButtons mb, Action action);
+        public void OnKeyUp(MouseButtons mb, Action action);
+        public void UnregisterOnKeyUp(MouseButtons mb, Action action);
     }
 }

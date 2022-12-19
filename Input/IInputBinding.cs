@@ -11,10 +11,20 @@ namespace DingusEngine.Input
     public interface IInputBinding
     {
         public Key KeyBind { get; }
-        public List<Action> Actions { get; }
+        public MouseButtons MouseBind { get; }
+        public List<Action> OnKeyHeldActions { get; }
+        public List<Action> OnKeyDownActions { get; }
+        public List<Action> OnKeyUpActions { get; }
+        public bool IsPressed { get; }
+        public bool KeyStateChange { get; }
 
-        public void RegisterBinding(Action action);
-        public void UnregisterBinding(Action action);
+        public void OnKeyHeld(Action action);
+        public void UnregisterOnKeyHeld(Action action);
+        public void OnKeyDown(Action action);
+        public void UnregisterOnKeyDown(Action action);
+        public void OnKeyUp(Action action);
+        public void UnregisterOnKeyUp(Action action);
         public void CallActions();
+        public void UpdatePressed(bool state);
     }
 }

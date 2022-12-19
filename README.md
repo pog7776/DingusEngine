@@ -15,6 +15,7 @@
 - Handle on key down and on key up rather than jsut checking if pressed, causing loop.
 - Can I get 3d to work? I don't know. I have no idea what I'm doing. Where am I?
 - Screenspace vs worldspace
+- Can I make a camera?
 - UI classes
 - Comment
 - Move this to a trello board
