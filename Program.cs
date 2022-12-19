@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using WriteLine = System.Diagnostics.Debug;
 using System.Security.Policy;
 using DingusEngine.Actors;
+using GameEngine.Actors;
 
 namespace DingusEngine
 {
@@ -80,6 +81,9 @@ namespace DingusEngine
             MovingActor ma = new MovingActor();
             actors.Add(ma);
 
+            TextActor txa = new TextActor();
+            actors.Add(txa);
+
             #endregion
         }
 
@@ -143,24 +147,9 @@ namespace DingusEngine
             using (Graphics g = Graphics.FromImage(_bufferImage))
             {
                 // Render each assigned task
-                foreach(ERenderTask task in RenderHandler.Tasks)
+                foreach(IRenderTask task in RenderHandler.Tasks)
                 {
-                    ASprite s = task.Sprite;
-                    if (s != null || s.Image != null)
-                    {
-                        g.DrawImage(s.Image,
-                            task.Transform.Position.X,task.Transform.Position.Y,
-                            s.Scale.X * s.Image.Width, s.Scale.Y * s.Image.Height);
-                    }
-                    else
-                    {
-                        MessageBox.Show(s.Owner.Name + " sprite is null.");
-                    }
-
-                    Font font = new Font("Times New Roman", 12.0f);
-                    Brush brush = new SolidBrush(Color.Black);
-                    g.DrawString(actors.First().Name + "\t" + actors.First().Transform.Position.ToString(), font, brush, 50, 10);
-                    g.DrawString(actors.Last().Name + "\t\t" + actors.Last().Transform.Position.ToString(), font, brush, 50, 30);
+                    task.Action(g);
                 }
             }
 

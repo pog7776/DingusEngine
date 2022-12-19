@@ -9,8 +9,8 @@ namespace DingusEngine.Rendering
 {
     public interface IRenderTask
     {
-        public ASprite Sprite { get; }
         public ATransform Transform { get; }
-        //public int Priority { get; set; }
+
+        public void Action(Graphics g);
     }
 }

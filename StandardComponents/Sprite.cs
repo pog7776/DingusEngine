@@ -12,7 +12,7 @@ namespace DingusEngine.StandardComponents
 {
     public class ASprite : Component
     {
-        public ERenderTask RenderTask { get; set; }
+        public SpriteRenderTask RenderTask { get; set; }
 
         public bool Visible {
             get { return _visible; }
@@ -55,7 +55,7 @@ namespace DingusEngine.StandardComponents
 
         public override void Start()
         {
-            RenderTask = new ERenderTask(this, Owner.Transform);
+            RenderTask = new SpriteRenderTask(this, Owner.Transform);
 
             if (Visible)
             {

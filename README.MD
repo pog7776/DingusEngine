@@ -4,7 +4,7 @@
 
 
 ### TODO
-- Handle text rendering
+- ~~Handle text rendering~~
 - Handle Font styles
-- Make text into a RenderTask so it can be ordered. Might need to be an actor
-- Make text into a Component for an AActor
+- ~~Make text into a RenderTask so it can be ordered. Might need to be an actor~~
+- ~~Make text into a Component for an AActor~~

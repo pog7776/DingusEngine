@@ -8,24 +8,24 @@ namespace DingusEngine.Rendering
 {
     public class ERenderHandler : IRenderHandler
     {
-        public List<ERenderTask> Tasks
+        public List<IRenderTask> Tasks
         {
             get { return _renderTasks; }
         }
-        private List<ERenderTask> _renderTasks;
+        private List<IRenderTask> _renderTasks;
 
         public ERenderHandler()
         {
-            _renderTasks = new List<ERenderTask>();
+            _renderTasks = new List<IRenderTask>();
         }
 
-        public void AddTask(ERenderTask task)
+        public void AddTask(IRenderTask task)
         {
             _renderTasks.Add(task);
             RefreshTasks();
         }
 
-        public void RemoveTask(ERenderTask task)
+        public void RemoveTask(IRenderTask task)
         {
             _renderTasks.Remove(task);
             RefreshTasks();

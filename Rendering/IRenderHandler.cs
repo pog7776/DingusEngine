@@ -8,9 +8,9 @@ namespace DingusEngine.Rendering
 {
     public interface IRenderHandler
     {
-        public List<ERenderTask> Tasks { get; }
+        public List<IRenderTask> Tasks { get; }
 
-        public void AddTask(ERenderTask task);
-        public void RemoveTask(ERenderTask task);
+        public void AddTask(IRenderTask task);
+        public void RemoveTask(IRenderTask task);
     }
 }
