@@ -15,17 +15,25 @@ namespace DingusEngine.Input
         public Key KeyBind => _keyBind;
         private Key _keyBind;
 
+        //EGameEngine engine = EGameEngine.Engine.MouseWheel;
+        // TODO Also has stuff for KeyDown down
+        //EGameEngine engine = EGameEngine.Engine.KeyDown
+        // wtf
+        // Check out Program OnResize and how that is bound in the constructor if you forget - you silly billy!
+
         // Mouse button
         public MouseButtons MouseBind => _mouseBind;
         private MouseButtons _mouseBind;
 
-        // All actions to invoke on keypress
+        // All actions to invoke on key held
         public List<Action> OnKeyHeldActions => _onKeyHeld;
         private List<Action> _onKeyHeld;
 
+        // All actions to invoke on key down
         public List<Action> OnKeyDownActions => _onKeyDown; //?? (_onKeyDown = new List<Action>());
         private List<Action> _onKeyDown;
 
+        // All actions to invoke on key up
         public List<Action> OnKeyUpActions => _onKeyUp;
         private List<Action> _onKeyUp;
 
@@ -33,7 +41,6 @@ namespace DingusEngine.Input
         private bool _isPressed;
         private bool lastPressedState;
         public bool KeyStateChange => (IsPressed != lastPressedState);
-
 
         public EInputBinding(Key key)
         {

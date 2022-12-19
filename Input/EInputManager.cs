@@ -26,7 +26,7 @@ namespace DingusEngine.Input
 
             foreach (MouseButtons mb in Enum.GetValues(typeof(MouseButtons)))
             {
-                if (!MouseBindings.ContainsKey(mb))
+                if (!MouseBindings.ContainsKey(mb) && mb != MouseButtons.None)
                 {
                     _mouseBindings.Add(mb, new EInputBinding(mb));
                 }

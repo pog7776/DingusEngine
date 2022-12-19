@@ -10,6 +10,7 @@ namespace DingusEngine.Input
 {
     public interface IInputBinding
     {
+        // TODO I think I should split Mouse and Keyboard into seperate classes
         public Key KeyBind { get; }
         public MouseButtons MouseBind { get; }
         public List<Action> OnKeyHeldActions { get; }

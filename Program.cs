@@ -53,6 +53,7 @@ namespace DingusEngine
             // Set the size and title of the window
             this.ClientSize = new Size(800, 600);
             this.Text = "Dingus Engine";
+            this.Resize += OnResize;
 
             // Init Graphics
             g = this.CreateGraphics();
@@ -90,7 +91,6 @@ namespace DingusEngine
             MovingActor ma = ActorManager.CreateActor<MovingActor>();
 
             TextActor txa = ActorManager.CreateActor<TextActor>();
-
 
             ASprite s = ta.GetComponent<ASprite>();
             ATransform tf = ta.GetComponent<ATransform>();
@@ -149,6 +149,12 @@ namespace DingusEngine
             // Paint the buffer image when reloaded
             base.OnPaint(e);
             e.Graphics.DrawImage(_bufferImage, 0, 0, _bufferImage.Width, _bufferImage.Height);
+        }
+
+        private void OnResize(object sender, EventArgs e)
+        {
+            // Form has been resized
+            _bufferImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
         }
 
         // Render the game
