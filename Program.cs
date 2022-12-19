@@ -11,7 +11,7 @@ using Microsoft.VisualBasic.Devices;
 using System.Runtime.InteropServices;
 using WriteLine = System.Diagnostics.Debug;
 using System.Security.Policy;
-using GameEngine.Actors;
+using DingusEngine.Actors;
 
 namespace DingusEngine
 {
@@ -156,6 +156,11 @@ namespace DingusEngine
                     {
                         MessageBox.Show(s.Owner.Name + " sprite is null.");
                     }
+
+                    Font font = new Font("Times New Roman", 12.0f);
+                    Brush brush = new SolidBrush(Color.Black);
+                    g.DrawString(actors.First().Name + "\t" + actors.First().Transform.Position.ToString(), font, brush, 50, 10);
+                    g.DrawString(actors.Last().Name + "\t\t" + actors.Last().Transform.Position.ToString(), font, brush, 50, 30);
                 }
             }
 

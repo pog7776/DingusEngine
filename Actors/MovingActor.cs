@@ -7,7 +7,7 @@ using System.Numerics;
 using DingusEngine.GameActor;
 using DingusEngine.StandardComponents;
 
-namespace GameEngine.Actors
+namespace DingusEngine.Actors
 {
     internal class MovingActor : Actor
     {
@@ -26,7 +26,7 @@ namespace GameEngine.Actors
 
         public override void Update()
         {
-            Transform.Position = new Vector3(Transform.Position.X + MathF.Sin(tick) * 10, Transform.Position.Y, Transform.Position.Z);
+            Transform.Position = new Vector3(Transform.Position.X + (MathF.Sin(tick) * 10), Transform.Position.Y, Transform.Position.Z);
 
             tick++;
         }
