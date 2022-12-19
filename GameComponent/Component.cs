@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngine.GameComponent
+namespace DingusEngine.GameComponent
 {
-    internal abstract class Component : IComponent
+    public abstract class Component : IComponent
     {
         public string Name
         {
@@ -15,6 +15,26 @@ namespace GameEngine.GameComponent
         }
         private string _name = "New Component";
 
+        public IActor Owner
+        {
+            get { return _owner; }
+            set { _owner = value; }
+        }
+        private IActor _owner;
+
+        public GameEngine Engine
+        {
+            get { return _engine; }
+        }
+        private GameEngine _engine;
+
+        public Component()
+        {
+            // Get the GameEngine
+            _engine = GameEngine.Engine;
+        }
+
+        public abstract void Start();
         public abstract void Update();
     }
 }

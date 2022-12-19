@@ -4,12 +4,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameEngine.StandardComponents;
+using DingusEngine.StandardComponents;
 
-namespace GameEngine.GameActor
+namespace DingusEngine.GameActor
 {
     internal abstract class Actor : IActor
     {
+        public ATransform Transform
+        {
+            get { return _transform; }
+            set { _transform = value; }
+        }
+        private ATransform _transform;
+
         // Actor Name
         public string Name
         {
@@ -25,11 +32,19 @@ namespace GameEngine.GameActor
         }
         private List<IComponent> _components;
 
+        // The GameEngine class
+        public GameEngine Engine
+        {
+            get { return _engine; }
+        }
+        private GameEngine _engine;
+
         // Constructor
         public Actor()
         {
             _components = new List<IComponent>();
-            AddComponent<Transform>();
+            Transform = AddComponent<ATransform>();
+            _engine = GameEngine.Engine;
         }
 
         // TODO register update with a list of update actions in the program.cs file
@@ -39,8 +54,10 @@ namespace GameEngine.GameActor
         {
             if (component != null)
             {
+                component.Owner = this;
                 Components.Add(component);
                 Console.WriteLine(component.Name + " added to " + this.Name);
+                component.Start();
                 return (T) component;
             }
             else
@@ -61,8 +78,10 @@ namespace GameEngine.GameActor
 
                     if (component != null)
                     {
+                        component.Owner = this;
                         Components.Add(component);
                         Console.WriteLine(component.Name + " added to " + this.Name);
+                        component.Start();
                         return (T) component;
                     }
                     else

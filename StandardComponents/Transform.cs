@@ -4,11 +4,11 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using GameEngine.GameComponent;
+using DingusEngine.GameComponent;
 
-namespace GameEngine.StandardComponents
+namespace DingusEngine.StandardComponents
 {
-    internal class Transform : Component
+    public class ATransform : Component
     {
         public Vector3 Position
         {
@@ -24,15 +24,20 @@ namespace GameEngine.StandardComponents
         }
         private Vector3 _rotation;
 
-        public Transform()
+        public ATransform()
         {
             Position = new Vector3(0, 0, 0);
             Rotation = new Vector3(0, 0, 0);
         }
 
+        public override void Start()
+        {
+            //throw new NotImplementedException();
+        }
+
         public override void Update()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

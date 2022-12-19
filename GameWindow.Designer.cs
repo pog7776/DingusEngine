@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace GameEngine
+namespace DingusEngine
 {
     partial class GameWindow
     {

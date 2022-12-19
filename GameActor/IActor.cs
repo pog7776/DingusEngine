@@ -1,4 +1,6 @@
-﻿using GameEngine.GameComponent;
+﻿using DingusEngine.GameComponent;
+using DingusEngine.StandardComponents;
+using DingusEngine;
 using System;
 using System.Numerics;
 
@@ -6,10 +8,11 @@ using System.Numerics;
 /// Summary description for Class1
 /// </summary>
 public interface IActor
-{	
+{
+	public ATransform? Transform { get; set; }
 	public string Name { get; set; }
-
 	public List<IComponent> Components { get; }
+	protected GameEngine Engine { get; }
 
 	public abstract void Update();
 
