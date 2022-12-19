@@ -29,7 +29,8 @@ namespace DingusEngine
         private int frameRate;
 
         // The time elapsed since the last frame
-        private float deltaTime;
+        public float DeltaTime { get { return _deltaTime; } }
+        private float _deltaTime;
 
         private List<Actor> actors = new List<Actor>();
 
@@ -42,7 +43,7 @@ namespace DingusEngine
             Engine = this;
             // Set the size and title of the window
             this.ClientSize = new Size(800, 600);
-            this.Text = "My Game Engine";
+            this.Text = "Dingus Engine";
 
             // Init Graphics
             g = this.CreateGraphics();
@@ -68,22 +69,13 @@ namespace DingusEngine
             Start();
         }
 
-        // TODO Remove later
-        private ASprite renderSprite;
-        private ATransform playerTransform;
-        private Vector2 dimensions;
-
         // Before game starts
         private void Start()
         {
-
             #region Test Actor
 
             TestActor ta = new TestActor();
             actors.Add(ta);
-            playerTransform = ta.GetComponent<ATransform>();
-            renderSprite = ta.GetComponent<ASprite>();
-            dimensions = new Vector2(renderSprite.Image.Width, renderSprite.Image.Height);
 
             #endregion
         }
@@ -92,10 +84,10 @@ namespace DingusEngine
         private void OnTick(object sender, EventArgs e)
         {
             // Update the elapsed time
-            deltaTime = (float)gameTimer.Interval / 1000;
+            _deltaTime = (float)gameTimer.Interval / 1000;
 
             // Update the game state
-            Update(deltaTime);
+            Update(DeltaTime);
 
             // Render the game
             Render();
@@ -108,10 +100,6 @@ namespace DingusEngine
         private void Update(float elapsedTime)
         {
             // Update the game logic here
-            // TODO handle a list of Update actions owned by actors here
-
-            //Point cursorPos = this.PointToClient(Cursor.Position);
-            //playerTransform.Position = new Vector3(cursorPos.X - (dimensions.X / 2), cursorPos.Y - (dimensions.Y / 2), 0);
 
             foreach(Actor actor in actors)
             {
@@ -154,7 +142,15 @@ namespace DingusEngine
                 // Render each assigned task
                 foreach(ERenderTask task in RenderHandler.Tasks)
                 {
-                    g.DrawImage(task.Sprite.Image, new Point((int)task.Transform.Position.X, (int)task.Transform.Position.Y));
+                    ASprite s = task.Sprite;
+                    if (s != null)
+                    {
+                        g.DrawImage(s.Image, task.Transform.Position.X, task.Transform.Position.Y, s.Scale.X * s.Image.Width, s.Scale.Y * s.Image.Height);
+                    }
+                    else
+                    {
+                        MessageBox.Show(s.Owner.Name + " sprite is null.");
+                    }
                 }
             }
 

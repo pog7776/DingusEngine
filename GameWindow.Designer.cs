@@ -30,6 +30,7 @@ namespace DingusEngine
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
             this.SuspendLayout();
             // 
             // GameWindow
@@ -38,6 +39,7 @@ namespace DingusEngine
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GameWindow";
             this.Text = "GameWindow";
             this.ResumeLayout(false);

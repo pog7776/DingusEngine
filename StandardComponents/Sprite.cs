@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using DingusEngine.GameComponent;
@@ -36,9 +38,19 @@ namespace DingusEngine.StandardComponents
         }
         private Image _image;
 
+        public Vector2 Scale
+        {
+            get { return _scale; }
+            set { _scale = value; }
+        }
+        private Vector2 _scale;
+
+        public Vector2 Dimensions => new Vector2(Image.Width * Scale.X, Image.Height * Scale.Y);
+
         public ASprite()
         {
             this.Name = "Sprite";
+            _scale = Vector2.One;
         }
 
         public override void Start()
@@ -55,6 +67,24 @@ namespace DingusEngine.StandardComponents
         public override void Update()
         {
             
+        }
+
+        public void SetSprite(string path)
+        {
+            if (File.Exists(path))
+            {
+                Image = Image.FromFile(path);
+            }
+            else
+            {
+                Visible = false;
+                MessageBox.Show("\"" + Owner.Name + "\" sprite path is invalid.");
+            }
+        }
+
+        public void SetScale(float scale)
+        {
+            Scale = new Vector2(scale, scale);
         }
     }
 }

@@ -4,7 +4,6 @@ C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\bin\Re
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\bin\Release\net7.0-windows\GameEngine.dll
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\bin\Release\net7.0-windows\GameEngine.pdb
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.csproj.AssemblyReference.cache
-C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.GameWindow.resources
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.csproj.GenerateResource.cache
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.AssemblyInfoInputs.cache
@@ -15,3 +14,4 @@ C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Re
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.pdb
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\GameEngine.genruntimeconfig.cache
 C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\ref\GameEngine.dll
+C:\Users\jackc\OneDrive\Documents\Dev\AI\GameEngine\GameEngine\GameEngine\obj\Release\net7.0-windows\DingusEngine.GameWindow.resources

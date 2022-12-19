@@ -11,29 +11,29 @@ namespace DingusEngine.Actors
 {
     internal class TestActor : Actor
     {
-        private Vector2 dimensions;
         private int tick = 0;
-
         ASprite sprite;
 
         public TestActor()
         {
             this.Name = "Test Actor :)";
             sprite = AddComponent<ASprite>();
-            sprite.Image = Image.FromFile("Assets\\Sprites\\TestSprite\\sprite.png");
+            //sprite.Image = Image.FromFile("Assets\\Sprites\\TestSprite\\sprite.pngg");
+            sprite.SetSprite("Assets\\Sprites\\TestSprite\\sprite.png");
 
-            //Transform = GetComponent<ATransform>();
-            //transform.Position.X = 100;
-            //transform.Position.Y = 100;
-
-            //Transform.Position = new Vector3(0, 0, 0);
-            dimensions = new Vector2(sprite.Image.Width, sprite.Image.Height);
+            sprite.Scale = new Vector2(0.01f, 0.01f);
+            //sprite.SetScale(0.3f);
         }
 
         public override void Update()
         {
             Point cursorPos = GameEngine.Engine.PointToClient(Cursor.Position);
-            Transform.Position = new Vector3(cursorPos.X - (dimensions.X / 2), cursorPos.Y - (dimensions.Y / 2), 0);
+            Transform.Position = new Vector3(cursorPos.X - (sprite.Dimensions.X / 2), cursorPos.Y - (sprite.Dimensions.Y / 2), 0);
+
+            if (sprite.Scale.X <= 0.3f)
+            {
+                sprite.Scale += new Vector2(Engine.DeltaTime / 10);
+            }
 
             if(tick == 60*5)
             {
