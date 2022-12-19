@@ -15,6 +15,9 @@ namespace DingusEngine
         public GameWindow()
         {
             InitializeComponent();
+
+            TextWriter writer = new StringWriter();
+            Console.SetOut(writer);
         }
     }
 }

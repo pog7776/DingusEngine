@@ -12,5 +12,7 @@ namespace GameEngine.GameActor
 
         public T? CreateActor<T>() where T : new();
         public void AddActor(IActor actor);
+
+        //TODO Find actor functions
     }
 }

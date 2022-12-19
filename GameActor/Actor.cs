@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,6 @@ namespace DingusEngine.GameActor
             _engine = EGameEngine.Engine;
         }
 
-        // TODO register update with a list of update actions in the program.cs file
         public abstract void Update();
 
         public T? AddComponent<T>(IComponent component)
@@ -56,13 +56,13 @@ namespace DingusEngine.GameActor
             {
                 component.Owner = this;
                 Components.Add(component);
-                Console.WriteLine(component.Name + " added to " + this.Name);
+                Debug.WriteLine(component.Name + " added to " + this.Name);
                 component.Start();
                 return (T) component;
             }
             else
             {
-                Console.WriteLine("Component added to " + this.Name + " is null");
+                Debug.WriteLine("Component added to " + this.Name + " is null");
             }
 
             return default;
@@ -80,7 +80,7 @@ namespace DingusEngine.GameActor
                     {
                         component.Owner = this;
                         Components.Add(component);
-                        Console.WriteLine(component.Name + " added to " + this.Name);
+                        Debug.WriteLine(component.Name + " added to " + this.Name);
                         component.Start();
                         return (T) component;
                     }
@@ -105,16 +105,16 @@ namespace DingusEngine.GameActor
                 // Try remove the component
                 if (!Components.Remove(component))
                 {
-                    Console.WriteLine("No component matching to remove from " + this.Name);
+                    Debug.WriteLine("No component matching to remove from " + this.Name);
                 }
                 else
                 {
-                    Console.WriteLine("Removed component: " + componentName + " from " + this.Name);
+                    Debug.WriteLine("Removed component: " + componentName + " from " + this.Name);
                 }
             }
             else
             {
-                Console.WriteLine("Component to remove from " + this.Name + " is null");
+                Debug.WriteLine("Component to remove from " + this.Name + " is null");
             }
         }
 
@@ -128,16 +128,16 @@ namespace DingusEngine.GameActor
                 {
                     string componentName = match.Name;
                     RemoveComponent(match);
-                    Console.WriteLine("Removed component: " + componentName + " from " + this.Name);
+                    Debug.WriteLine("Removed component: " + componentName + " from " + this.Name);
                 }
                 else
                 {
-                    Console.WriteLine("No component of type: " + typeof(T) + " present on Actor: " + this.Name);
+                    Debug.WriteLine("No component of type: " + typeof(T) + " present on Actor: " + this.Name);
                 }
             }
             else
             {
-                Console.WriteLine(typeof(T) + " is not an IComponent.");
+                Debug.WriteLine(typeof(T) + " is not an IComponent.");
             }
         }
 
@@ -154,12 +154,12 @@ namespace DingusEngine.GameActor
                 }
                 else
                 {
-                    Console.WriteLine("No component of type: " + typeof(T) + " present on Actor: " + this.Name);
+                    Debug.WriteLine("No component of type: " + typeof(T) + " present on Actor: " + this.Name);
                 }
             }
             else
             {
-                Console.WriteLine(typeof(T) + " is not an IComponent.");
+                Debug.WriteLine(typeof(T) + " is not an IComponent.");
             }
             return default;
         }

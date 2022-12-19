@@ -8,3 +8,6 @@
 - Handle Font styles
 - ~~Make text into a RenderTask so it can be ordered. Might need to be an actor~~
 - ~~Make text into a Component for an AActor~~
+- Particle effects!!
+- Input manager
+- Can I get 3d to work? I don't know. I have no idea what I'm doing. Where am I?
