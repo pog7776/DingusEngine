@@ -9,7 +9,10 @@
 - ~~Make text into a RenderTask so it can be ordered. Might need to be an actor~~
 - ~~Make text into a Component for an AActor~~
 - Particle effects!!
-- Input manager
+- ~~Input manager~~
+- Need to handle mouse input
+- Need to slow input so it doesnt take a million inputs from one key a second
 - Can I get 3d to work? I don't know. I have no idea what I'm doing. Where am I?
 - Screenspace vs worldspace
 - UI classes
+- Comment
