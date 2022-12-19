@@ -13,6 +13,7 @@ using WriteLine = System.Diagnostics.Debug;
 using System.Security.Policy;
 using DingusEngine.Actors;
 using GameEngine.Actors;
+using GameEngine.GameActor;
 
 namespace DingusEngine
 {
@@ -33,7 +34,8 @@ namespace DingusEngine
         public float DeltaTime { get { return _deltaTime; } }
         private float _deltaTime;
 
-        private List<Actor> actors = new List<Actor>();
+        //private List<Actor> actors = new List<Actor>();
+        public EActorManager ActorManager;
 
         Graphics g;
         private Image _bufferImage;
@@ -42,6 +44,7 @@ namespace DingusEngine
         public EGameEngine()
         {
             Engine = this;
+            ActorManager = new EActorManager();
             // Set the size and title of the window
             this.ClientSize = new Size(800, 600);
             this.Text = "Dingus Engine";
@@ -75,14 +78,11 @@ namespace DingusEngine
         {
             #region Test Actors
 
-            TestActor ta = new TestActor();
-            actors.Add(ta);
+            TestActor ta = ActorManager.CreateActor<TestActor>();
 
-            MovingActor ma = new MovingActor();
-            actors.Add(ma);
+            MovingActor ma = ActorManager.CreateActor<MovingActor>();
 
-            TextActor txa = new TextActor();
-            actors.Add(txa);
+            TextActor txa = ActorManager.CreateActor<TextActor>();
 
             #endregion
         }
@@ -108,7 +108,7 @@ namespace DingusEngine
         {
             // Update the game logic here
 
-            foreach(Actor actor in actors)
+            foreach(Actor actor in ActorManager.Actors)
             {
                 actor.Update();
                 foreach(IComponent component in actor.Components)
