@@ -28,25 +28,27 @@ namespace DingusEngine.Rendering
         {
             TextRender = textRender;
             _transform = transform;
+            TextRender.Brush = Brushes.Red;
         }
 
         //public void Action(DrawingContext g)
         public void Action(DrawingContext g)
         {
             //g.DrawText(TextRender.Text, TextRender.Font, TextRender.Brush, Transform.Position.X, Transform.Position.Y);
-            DrawingVisual drawingVisual = new DrawingVisual();
-            DrawingContext drawingContext = drawingVisual.RenderOpen();
+            //DrawingVisual drawingVisual = new DrawingVisual();
+            //DrawingContext drawingContext = drawingVisual.RenderOpen();
 
-            drawingContext.DrawText(
+            g.DrawText(
                 new FormattedText(TextRender.Text,
                 CultureInfo.GetCultureInfo("en-us"),
                 FlowDirection.LeftToRight,
                 TextRender.Font,
-                36, TextRender.Brush),
+                TextRender.FontSize,
+                TextRender.Brush),
                 new System.Windows.Point(Transform.Position.X, Transform.Position.Y));
 
             // Close the DrawingContext to persist changes to the DrawingVisual.
-            drawingContext.Close();
+            //drawingContext.Close();
         }
     }
 }

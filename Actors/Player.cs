@@ -17,6 +17,7 @@ namespace DingusEngine.Actors
 
         public Player()
         {
+            Transform.Position = new Vector3(100,100,1);
             sprite = AddComponent<ASprite>();
             sprite.SetSprite("Assets\\Sprites\\TestSprite\\sprite2.png");
 

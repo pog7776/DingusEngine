@@ -22,6 +22,14 @@ namespace DingusEngine.StandardComponents
         }
         private Typeface _font = new Typeface("Arial");
 
+        public int FontSize
+        {
+            get { return _fontSize; }
+            set { _fontSize = value; }
+
+        }
+        private int _fontSize = 12;
+
         public Brush Brush
         {
             get { return _brush; }

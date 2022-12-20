@@ -48,7 +48,6 @@ namespace DingusEngine
         public EActorManager actorManager;
         public EInputManager InputManager;
 
-        private DrawingContext g;
         private DrawingVisual _buffer;
         public Canvas Canvas => _canvas;
         private Canvas _canvas;
@@ -63,18 +62,17 @@ namespace DingusEngine
             // Set the size and title of the window
             //this.Width = 800;
             //this.Height = 600;
-            //this.Title = "Dingus Engine";
-            //this.SizeChanged += OnResize;
+            this.Title = "Dingus Engine";
+            this.SizeChanged += OnResize;
 
             // Init Graphics
             _buffer = new DrawingVisual();
-            g = _buffer.RenderOpen();
             _canvas = (Canvas)this.FindName("RenderLayer");
             RenderHandler = new ERenderHandler();
 
-            // Enable double buffering for the window
-            //this.SetValue(RenderOptions.DoubleBufferProperty, true);
-            //this.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            this.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+            //RenderOptions.EdgeModeProperty = EdgeMode.Aliased;
+            this.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
 
             // Initialize the game state and frame rate
             gameState = GameState.Running;
@@ -82,7 +80,7 @@ namespace DingusEngine
 
             // Initialize the timer
             gameTimer = new DispatcherTimer();
-            gameTimer.Interval = new TimeSpan(1000 / frameRate);
+            gameTimer.Interval = new TimeSpan(10000 / frameRate);
             gameTimer.Tick += OnTick;
             gameTimer.Start();
 
@@ -94,23 +92,23 @@ namespace DingusEngine
         {
             #region Test Actors
 
-            TestActor ta = actorManager.CreateActor<TestActor>();
+            //TestActor ta = actorManager.CreateActor<TestActor>();
 
-            MovingActor ma = actorManager.CreateActor<MovingActor>();
+            //MovingActor ma = actorManager.CreateActor<MovingActor>();
 
-            //TextActor txa = actorManager.CreateActor<TextActor>();
+            TextActor txa = actorManager.CreateActor<TextActor>();
 
             Player player = actorManager.CreateActor<Player>();
 
             //ASprite s = ta.GetComponent<ASprite>();
             //ATransform tf = ta.GetComponent<ATransform>();
 
-            //InputManager.OnKeyDown(MouseButton.Left, delegate
+            //InputManager.OnKeyDown(Key.Space, delegate
             //{
             //    s.SetScale(1f);
             //});
 
-            //InputManager.OnKeyUp(MouseButton.Left, delegate
+            //InputManager.OnKeyUp(Key.Space, delegate
             //{
             //    s.SetScale(0.3f);
             //});
@@ -145,7 +143,7 @@ namespace DingusEngine
 
             // Draw the buffer image to the form
             //g.Close();
-            this.InvalidateVisual();
+            //this.InvalidateVisual();
         }
 
         // Update the game
@@ -161,7 +159,12 @@ namespace DingusEngine
         // Render the game
         private void Render()
         {
+            _canvas.Width = this.ActualWidth;
+            _canvas.Height = this.ActualHeight;
+            //_canvas.TransformToAncestor(this);
+            //_canvas.TranslatePoint(new Point(0,0), this);
             _canvas.Children.Clear();
+            _buffer.Children.Clear();
 
             using (DrawingContext context = _buffer.RenderOpen())
             {
@@ -171,6 +174,18 @@ namespace DingusEngine
                 {
                     task.Action(context);
                 }
+
+                // Debug
+                // Actually, hacky workaround to make the canvas full screen
+                SolidColorBrush brush = new SolidColorBrush();
+                brush.Color = Colors.Blue;
+
+                Pen pen = new Pen();
+                pen.Thickness = 1;
+                pen.Brush = brush;
+                //Rect canvasBounds = new Rect(0, 0, this.Width - 50, this.Height - 50);
+                Rect canvasBounds = new Rect(0, 0, _canvas.Width, _canvas.Height);
+                context.DrawRectangle(null, pen, canvasBounds);
             }
 
             Image img = new Image();
@@ -194,8 +209,8 @@ namespace DingusEngine
         private void OnResize(object sender, EventArgs e)
         {
             // Update the buffer image size
-            _buffer = new DrawingVisual();
-            g = _buffer.RenderOpen();
+            //_buffer = new DrawingVisual();
+            //g = _buffer.RenderOpen();
         }
     }
 

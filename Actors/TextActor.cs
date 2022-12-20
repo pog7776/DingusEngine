@@ -8,6 +8,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DingusEngine.Actors
 {
@@ -15,16 +16,32 @@ namespace DingusEngine.Actors
     {
         ATextRender text;
 
+        int tick = 0;
+        int totalFames = 0;
+        float time = 0;
+
         public TextActor()
         {
-            Transform.Position = new Vector3(50, 10, 10);
+            Transform.Position = new Vector3(10, 10, 10);
             text = AddComponent<ATextRender>();
-            text.Text = "Hello World!!";
+            text.Text = "0";
+            text.FontSize = 20;
         }
 
         public override void Update()
         {
-            //throw new NotImplementedException();
+            time += EGameEngine.Engine.DeltaTime;
+            tick++;
+
+            //text.Text = (frame / time).ToString("N0");
+            text.Text = "TPS: " + (tick / time).ToString();
+
+            if (time > 1)
+            {
+                totalFames = tick;
+                tick = 0;
+                time = 0;
+            }
         }
     }
 }

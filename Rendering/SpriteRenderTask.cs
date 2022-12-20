@@ -43,7 +43,7 @@ namespace DingusEngine.Rendering
                 // Get all the bounds so the image can be cropped
                 // Otherwise it renders the offscreen object and moves everything else to fit
                 Rect imageBounds = new Rect(Transform.Position.X, Transform.Position.Y, Sprite.Image.Source.Width * Sprite.Scale.X, Sprite.Image.Source.Height * Sprite.Scale.Y);
-                Rect canvasBounds = new Rect(0, 0, EGameEngine.Engine.Width, EGameEngine.Engine.Height);
+                Rect canvasBounds = new Rect(0, 0, EGameEngine.Engine.Canvas.Width, EGameEngine.Engine.Canvas.Height);
 
                 Rect visibleBounds = Rect.Intersect(imageBounds, canvasBounds);
 
@@ -77,7 +77,6 @@ namespace DingusEngine.Rendering
                 pen.Thickness = 2;
                 pen.Brush = brush;
                 g.DrawRectangle(null, pen, visibleBounds);
-
             }
             else
             {
