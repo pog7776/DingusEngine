@@ -27,10 +27,21 @@ namespace DingusEngine.Rendering
         }
         private ATransform _transform;
 
+        public Canvas Bounds
+        {
+            get { return _bounds; }
+            set { _bounds = value; }
+        }
+        private Canvas _bounds;
+
         public SpriteRenderTask(ASprite sprite, ATransform transform)
         {
             _sprite = sprite;
             _transform = transform;
+            _bounds= new Canvas();
+            //Rect imageBounds = new Rect(Transform.Position.X, Transform.Position.Y, Sprite.Image.Source.Width * Sprite.Scale.X, Sprite.Image.Source.Height * Sprite.Scale.Y);
+            //_bounds.Width = imageBounds.Width;
+            //_bounds.Height = imageBounds.Height;
         }
 
         public void Action(DrawingContext g)
@@ -82,6 +93,19 @@ namespace DingusEngine.Rendering
             {
                 MessageBox.Show(Sprite.Owner.Name + " sprite is null.");
             }
+        }
+
+        public void Action(Canvas c)
+        {
+            if (!c.Children.Contains(Sprite.Image))
+            {
+                c.Children.Add(Sprite.Image);
+            }
+            Canvas.SetLeft(Sprite.Image, Transform.Position.X);
+            Canvas.SetTop(Sprite.Image, Transform.Position.Y);
+            Canvas.SetZIndex(Sprite.Image, (int)Transform.Position.Z);
+            Sprite.Image.Width = Sprite.Image.Source.Width * Sprite.Scale.X;
+            Sprite.Image.Height = Sprite.Image.Source.Height * Sprite.Scale.Y;
         }
 
         private static bool IsOffScreen(Rect imageBounds, Rect visibleBounds) => (RectArea(visibleBounds) < RectArea(imageBounds));

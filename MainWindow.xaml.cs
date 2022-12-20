@@ -92,7 +92,7 @@ namespace DingusEngine
         {
             #region Test Actors
 
-            //TestActor ta = actorManager.CreateActor<TestActor>();
+            TestActor ta = actorManager.CreateActor<TestActor>();
 
             //MovingActor ma = actorManager.CreateActor<MovingActor>();
 
@@ -158,6 +158,7 @@ namespace DingusEngine
         // Render the game
         private void Render()
         {
+            /*
             _canvas.Width = this.ActualWidth;
             _canvas.Height = this.ActualHeight;
             //_canvas.TransformToAncestor(this);
@@ -190,6 +191,13 @@ namespace DingusEngine
             Image img = new Image();
             img.Source = new DrawingImage(_buffer.Drawing);
             _canvas.Children.Add(img);
+            */
+
+            _canvas.Children.Clear();
+            foreach (IRenderTask task in RenderHandler.Tasks)
+            {
+                task.Action(_canvas);
+            }
         }
 
         // Render the pause screen

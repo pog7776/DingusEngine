@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
 
@@ -44,6 +45,11 @@ namespace DingusEngine.Rendering
                 new System.Windows.Point(Transform.Position.X, Transform.Position.Y));
 
             // Close the DrawingContext to persist changes to the DrawingVisual.
+        }
+
+        void IRenderTask.Action(Canvas c)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
