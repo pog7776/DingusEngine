@@ -26,7 +26,6 @@ namespace DingusEngine.StandardComponents
         {
             get { return _fontSize; }
             set { _fontSize = value; }
-
         }
         private int _fontSize = 12;
 

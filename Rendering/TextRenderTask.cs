@@ -34,10 +34,6 @@ namespace DingusEngine.Rendering
         //public void Action(DrawingContext g)
         public void Action(DrawingContext g)
         {
-            //g.DrawText(TextRender.Text, TextRender.Font, TextRender.Brush, Transform.Position.X, Transform.Position.Y);
-            //DrawingVisual drawingVisual = new DrawingVisual();
-            //DrawingContext drawingContext = drawingVisual.RenderOpen();
-
             g.DrawText(
                 new FormattedText(TextRender.Text,
                 CultureInfo.GetCultureInfo("en-us"),
@@ -48,7 +44,6 @@ namespace DingusEngine.Rendering
                 new System.Windows.Point(Transform.Position.X, Transform.Position.Y));
 
             // Close the DrawingContext to persist changes to the DrawingVisual.
-            //drawingContext.Close();
         }
     }
 }

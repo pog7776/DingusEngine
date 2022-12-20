@@ -142,7 +142,6 @@ namespace DingusEngine
             }
 
             // Draw the buffer image to the form
-            //g.Close();
             //this.InvalidateVisual();
         }
 
