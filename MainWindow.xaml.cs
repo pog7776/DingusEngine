@@ -80,7 +80,7 @@ namespace DingusEngine
 
             // Initialize the timer
             gameTimer = new DispatcherTimer();
-            gameTimer.Interval = new TimeSpan(10000 / frameRate);
+            gameTimer.Interval = new TimeSpan(1000 / frameRate);
             gameTimer.Tick += OnTick;
             gameTimer.Start();
 
@@ -92,11 +92,11 @@ namespace DingusEngine
         {
             #region Test Actors
 
-            TestActor ta = actorManager.CreateActor<TestActor>();
+            //TestActor ta = actorManager.CreateActor<TestActor>();
 
-            //MovingActor ma = actorManager.CreateActor<MovingActor>();
+            MovingActor ma = actorManager.CreateActor<MovingActor>();
 
-            TextActor txa = actorManager.CreateActor<TextActor>();
+            //TextActor txa = actorManager.CreateActor<TextActor>();
 
             Player player = actorManager.CreateActor<Player>();
 
@@ -149,7 +149,7 @@ namespace DingusEngine
         private void Update()
         {
             // Update the input
-            InputManager.Update();
+            //InputManager.Update();
 
             // Update the actors
             actorManager.Update();
@@ -193,7 +193,6 @@ namespace DingusEngine
             _canvas.Children.Add(img);
             */
 
-            _canvas.Children.Clear();
             foreach (IRenderTask task in RenderHandler.Tasks)
             {
                 task.Action(_canvas);

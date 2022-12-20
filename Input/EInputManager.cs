@@ -15,9 +15,9 @@ namespace DingusEngine.Input
         public  Dictionary<MouseButton, IInputBinding> MouseBindings => _mouseBindings;
         private Dictionary<MouseButton, IInputBinding> _mouseBindings;
 
-        private int frame = 0;
-        private int _pollRate = 1;
-        public int PollRate
+        private float time = 0;
+        private float _pollRate = 0.1f;
+        public float PollRate
         {
             get => _pollRate;
             set => _pollRate = value;
@@ -25,6 +25,11 @@ namespace DingusEngine.Input
 
         public EInputManager()
         {
+            EGameEngine.Engine.KeyDown += HandleKeyboard;
+            EGameEngine.Engine.KeyUp += HandleKeyboard;
+            //EGameEngine.Engine.MouseDown += Update;
+
+
             _inputBindings = new Dictionary<Key, IInputBinding>();
             _mouseBindings = new Dictionary<MouseButton, IInputBinding>();
 
@@ -47,11 +52,11 @@ namespace DingusEngine.Input
 
         public void Update()
         {
-            HandleMouse();
-            HandleKeyboard();
+            //HandleMouse(e);
+            //HandleKeyboard(e);
 
-            frame++;
-            if(frame > PollRate) { frame = 0; }
+            time += EGameEngine.Engine.DeltaTime;
+            if(time > PollRate) { time = 0; }
         }
 
         private void HandleMouse()
@@ -75,7 +80,7 @@ namespace DingusEngine.Input
             }
 
             // Call held actions
-            if (frame >= PollRate)
+            if (time >= PollRate)
             {
                 //foreach (Key k in Enum.GetValues(typeof(Key)))
                 foreach (KeyValuePair<MouseButton, IInputBinding> mb in MouseBindings)
@@ -88,37 +93,32 @@ namespace DingusEngine.Input
             }
         }
 
-        private void HandleKeyboard()
+        private void HandleKeyboard(object sender, KeyEventArgs e)
         {
             // On KeyDown and KeyUp
-            foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
-            {
-                if (Keyboard.IsKeyDown(k.Key))
+            //foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
+            //{
+                //IInputBinding k = InputBindings[e.Key];
+                if (e.IsDown)
                 {
-                    InputBindings[k.Key].UpdatePressed(true);
+                    InputBindings[e.Key].UpdatePressed(true);
                 }
                 else
                 {
-                    InputBindings[k.Key].UpdatePressed(false);
+                    InputBindings[e.Key].UpdatePressed(false);
                 }
 
-                if (InputBindings[k.Key].KeyStateChange)
+                if (InputBindings[e.Key].KeyStateChange)
                 {
-                    InputBindings[k.Key].CallActions();
+                    InputBindings[e.Key].CallActions();
                 }
-            }
+            //}
 
             // Call held actions
-            if (frame >= PollRate)
+            //if (time >= PollRate)
+            if(e.IsRepeat)
             {
-                //foreach (Key k in Enum.GetValues(typeof(Key)))
-                foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
-                {
-                    if (Keyboard.IsKeyDown(k.Key))
-                    {
-                        InputBindings[k.Key].OnKeyHeldActions.ForEach(x => x?.Invoke());
-                    }
-                }
+                InputBindings[e.Key].OnKeyHeldActions.ForEach(x => x?.Invoke());
             }
         }
 

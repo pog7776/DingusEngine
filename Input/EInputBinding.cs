@@ -70,6 +70,7 @@ namespace DingusEngine.Input
                 OnKeyUpActions.ForEach(a => a?.Invoke());
             }
 
+            //TODO Redundant now?
             _lastPressedState = IsPressed;
         }
 
