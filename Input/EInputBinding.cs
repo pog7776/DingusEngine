@@ -40,15 +40,15 @@ namespace DingusEngine.Input
 
         public bool IsPressed => _isPressed;
         private bool _isPressed;
-        private bool lastPressedState;
-        public bool KeyStateChange => (IsPressed != lastPressedState);
+        private bool _lastPressedState;
+        public bool KeyStateChange => (IsPressed != _lastPressedState);
 
         public EInputBinding(Key key)
         {
-            _keyBind = key;
+            _keyBind   = key;
             _onKeyHeld = new List<Action>();
             _onKeyDown = new List<Action>();
-            _onKeyUp = new List<Action>();
+            _onKeyUp   = new List<Action>();
             _isPressed = false;
         }
 
@@ -57,7 +57,7 @@ namespace DingusEngine.Input
             _mouseBind = mb;
             _onKeyHeld = new List<Action>();
             _onKeyDown = new List<Action>();
-            _onKeyUp = new List<Action>();
+            _onKeyUp   = new List<Action>();
             _isPressed = false;
         }
 
@@ -67,29 +67,28 @@ namespace DingusEngine.Input
             {
                 OnKeyDownActions.ForEach(a => a?.Invoke());
             }
-
-            if (!IsPressed)
+            else
             {
                 OnKeyUpActions.ForEach(a => a?.Invoke());
             }
 
-            lastPressedState = IsPressed;
+            _lastPressedState = IsPressed;
         }
 
         // Should i return a token or something to keep track of the action?
 
         // Register Events on held, down and up
-        public void OnKeyHeld(Action action) => _onKeyHeld.Add(action);
+        public void OnKeyHeld(Action action)            => _onKeyHeld.Add(action);
 
-        public void UnregisterOnKeyHeld(Action action) => _onKeyHeld.Remove(action);
+        public void UnregisterOnKeyHeld(Action action)  => _onKeyHeld.Remove(action);
 
-        public void OnKeyDown(Action action) => _onKeyDown.Add(action);
+        public void OnKeyDown(Action action)            => _onKeyDown.Add(action);
 
-        public void UnregisterOnKeyDown(Action action) => _onKeyDown.Remove(action);
+        public void UnregisterOnKeyDown(Action action)  => _onKeyDown.Remove(action);
 
-        public void OnKeyUp(Action action) => _onKeyUp.Add(action);
+        public void OnKeyUp(Action action)              => _onKeyUp.Add(action);
 
-        public void UnregisterOnKeyUp(Action action) => _onKeyDown.Remove(action);
+        public void UnregisterOnKeyUp(Action action)    => _onKeyDown.Remove(action);
 
         // Updaing the pressed state
         public void UpdatePressed(bool state)

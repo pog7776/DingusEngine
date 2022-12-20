@@ -36,7 +36,7 @@ namespace DingusEngine
         private int frameRate;
 
         // The time elapsed since the last frame
-        public float DeltaTime { get { return _deltaTime; } }
+        public float DeltaTime => _deltaTime;
         private float _deltaTime;
 
         public EActorManager ActorManager;
@@ -73,7 +73,7 @@ namespace DingusEngine
 
             // Initialize the timer
             //gameTimer = new Timer();
-            gameTimer = new System.Windows.Threading.DispatcherTimer();
+            gameTimer = new DispatcherTimer();
             //gameTimer.Interval = 1000 / frameRate;
             gameTimer.Interval = new TimeSpan(1000 / frameRate);
             gameTimer.Tick += new EventHandler(OnTick);
@@ -87,13 +87,13 @@ namespace DingusEngine
         {
             #region Test Actors
 
-            TestActor ta = ActorManager.CreateActor<TestActor>();
+            TestActor ta   = ActorManager.CreateActor<TestActor>();
 
             MovingActor ma = ActorManager.CreateActor<MovingActor>();
 
-            TextActor txa = ActorManager.CreateActor<TextActor>();
+            TextActor txa  = ActorManager.CreateActor<TextActor>();
 
-            Player player = ActorManager.CreateActor<Player>();
+            Player player  = ActorManager.CreateActor<Player>();
 
             ASprite s = ta.GetComponent<ASprite>();
             ATransform tf = ta.GetComponent<ATransform>();

@@ -15,7 +15,7 @@ namespace DingusEngine.Input
         public MouseButtons MouseBind { get; }
         public List<Action> OnKeyHeldActions { get; }
         public List<Action> OnKeyDownActions { get; }
-        public List<Action> OnKeyUpActions { get; }
+        public List<Action> OnKeyUpActions   { get; }
         public bool IsPressed { get; }
         public bool KeyStateChange { get; }
 

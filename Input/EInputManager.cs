@@ -10,10 +10,10 @@ namespace DingusEngine.Input
 {
     public class EInputManager : IInputManager
     {
-        public Dictionary<Key, IInputBinding> InputBindings => _inputBindings;
+        public  Dictionary<Key, IInputBinding> InputBindings => _inputBindings;
         private Dictionary<Key, IInputBinding> _inputBindings;
 
-        public Dictionary<MouseButtons, IInputBinding> MouseBindings => _mouseBindings;
+        public  Dictionary<MouseButtons, IInputBinding> MouseBindings => _mouseBindings;
         private Dictionary<MouseButtons, IInputBinding> _mouseBindings;
 
         private int frame = 0;
@@ -50,11 +50,9 @@ namespace DingusEngine.Input
         {
             HandleMouse();
             HandleKeyboard();
+
             frame++;
-            if(frame > PollRate)
-            {
-                frame = 0;
-            }
+            if(frame > PollRate) { frame = 0; }
         }
 
         private void HandleMouse()
@@ -126,19 +124,19 @@ namespace DingusEngine.Input
         }
 
         // Keyboard Binding
-        public void OnKeyHeld(Key k, Action action) => InputBindings[k].OnKeyHeld(action);
-        public void UnregisterOnKeyHeld(Key k, Action action) => InputBindings[k].UnregisterOnKeyHeld(action);
-        public void OnKeyDown(Key k, Action action) => InputBindings[k].OnKeyDown(action);
-        public void UnregisterOnKeyDown(Key k, Action action) => InputBindings[k].UnregisterOnKeyDown(action);
-        public void OnKeyUp(Key k, Action action) => InputBindings[k].OnKeyUp(action);
-        public void UnregisterOnKeyUp(Key k, Action action) => InputBindings[k].UnregisterOnKeyUp(action);
+        public void OnKeyHeld(Key k, Action action)             => InputBindings[k].OnKeyHeld(action);
+        public void UnregisterOnKeyHeld(Key k, Action action)   => InputBindings[k].UnregisterOnKeyHeld(action);
+        public void OnKeyDown(Key k, Action action)             => InputBindings[k].OnKeyDown(action);
+        public void UnregisterOnKeyDown(Key k, Action action)   => InputBindings[k].UnregisterOnKeyDown(action);
+        public void OnKeyUp(Key k, Action action)               => InputBindings[k].OnKeyUp(action);
+        public void UnregisterOnKeyUp(Key k, Action action)     => InputBindings[k].UnregisterOnKeyUp(action);
 
         // Mouse Binding
-        public void OnKeyHeld(MouseButtons mb, Action action) => MouseBindings[mb].OnKeyHeld(action);
+        public void OnKeyHeld(MouseButtons mb, Action action)           => MouseBindings[mb].OnKeyHeld(action);
         public void UnregisterOnKeyHeld(MouseButtons mb, Action action) => MouseBindings[mb].UnregisterOnKeyHeld(action);
-        public void OnKeyDown(MouseButtons mb, Action action) => MouseBindings[mb].OnKeyDown(action);
+        public void OnKeyDown(MouseButtons mb, Action action)           => MouseBindings[mb].OnKeyDown(action);
         public void UnregisterOnKeyDown(MouseButtons mb, Action action) => MouseBindings[mb].UnregisterOnKeyDown(action);
-        public void OnKeyUp(MouseButtons mb, Action action) => MouseBindings[mb].OnKeyUp(action);
-        public void UnregisterOnKeyUp(MouseButtons mb, Action action) => MouseBindings[mb].UnregisterOnKeyUp(action);
+        public void OnKeyUp(MouseButtons mb, Action action)             => MouseBindings[mb].OnKeyUp(action);
+        public void UnregisterOnKeyUp(MouseButtons mb, Action action)   => MouseBindings[mb].UnregisterOnKeyUp(action);
     }
 }

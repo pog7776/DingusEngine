@@ -25,7 +25,7 @@ namespace GameEngine.Actors
             Engine.InputManager.OnKeyHeld(Key.S, delegate { Move(new Vector3(0, 1, 0)); });
             Engine.InputManager.OnKeyHeld(Key.D, delegate { Move(new Vector3(1, 0, 0)); });
 
-            Engine.InputManager.OnKeyDown(Key.Up, delegate { speed++; });
+            Engine.InputManager.OnKeyDown(Key.Up,   delegate { speed++; });
             Engine.InputManager.OnKeyDown(Key.Down, delegate { speed--; });
         }
 
