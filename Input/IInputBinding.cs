@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,7 @@ namespace DingusEngine.Input
     {
         // TODO I think I should split Mouse and Keyboard into seperate classes
         public Key KeyBind { get; }
-        public MouseButtons MouseBind { get; }
+        public MouseButton MouseBind { get; }
         public List<Action> OnKeyHeldActions { get; }
         public List<Action> OnKeyDownActions { get; }
         public List<Action> OnKeyUpActions   { get; }

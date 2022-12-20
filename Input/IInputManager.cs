@@ -22,11 +22,11 @@ namespace DingusEngine.Input
         public void UnregisterOnKeyUp(Key k, Action action);
 
         // Mouse Binding
-        public void OnKeyHeld(MouseButtons mb, Action action);
-        public void UnregisterOnKeyHeld(MouseButtons mb, Action action);
-        public void OnKeyDown(MouseButtons mb, Action action);
-        public void UnregisterOnKeyDown(MouseButtons mb, Action action);
-        public void OnKeyUp(MouseButtons mb, Action action);
-        public void UnregisterOnKeyUp(MouseButtons mb, Action action);
+        public void OnKeyHeld(MouseButton mb, Action action);
+        public void UnregisterOnKeyHeld(MouseButton mb, Action action);
+        public void OnKeyDown(MouseButton mb, Action action);
+        public void UnregisterOnKeyDown(MouseButton mb, Action action);
+        public void OnKeyUp(MouseButton mb, Action action);
+        public void UnregisterOnKeyUp(MouseButton mb, Action action);
     }
 }

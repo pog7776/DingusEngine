@@ -6,6 +6,10 @@ using System.Numerics;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using DingusEngine.GameComponent;
 using DingusEngine.Rendering;
 
@@ -46,12 +50,13 @@ namespace DingusEngine.StandardComponents
         }
         private Vector2 _scale;
 
-        public Vector2 Dimensions => new Vector2(Image.Width * Scale.X, Image.Height * Scale.Y);
+        public Vector2 Dimensions => new Vector2((float)Image.Width * Scale.X, (float)Image.Height * Scale.Y);
 
         public ASprite()
         {
             this.Name = "Sprite";
             _scale = Vector2.One;
+            _image = new Image();
         }
 
         public override void Start()
@@ -71,9 +76,20 @@ namespace DingusEngine.StandardComponents
 
         public void SetSprite(string path)
         {
+            //path = @"file:///" + Directory.GetCurrentDirectory() + "\\" + path;
             if (File.Exists(path))
             {
-                Image = Image.FromFile(path);
+                //Image = Image.FromFile(path);
+
+                Image.Source = new BitmapImage(new Uri(@"file:///" + Directory.GetCurrentDirectory() + "\\" + path));
+                //Image.Source = new BitmapImage(new Uri(path));
+
+                //FileStream fileStream =
+                //    new FileStream(path, FileMode.Open, FileAccess.Read);
+                //Image = new BitmapImage();
+                //Image.BeginInit();
+                //Image.StreamSource = fileStream;
+                //Image.EndInit();
             }
             else
             {

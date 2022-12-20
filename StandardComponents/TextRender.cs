@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using DingusEngine.GameComponent;
 using DingusEngine.Rendering;
-using DingusEngine.Rendering;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.TextFormatting;
 
 namespace DingusEngine.StandardComponents
 {
@@ -13,19 +15,19 @@ namespace DingusEngine.StandardComponents
     {
         public string Text { get; set; }
 
-        public Font Font
+        public Typeface Font
         {
             get { return _font; }
             set { _font = value; }
         }
-        private Font _font = new Font("Arial", 12.0f);
+        private Typeface _font = new Typeface("Arial");
 
         public Brush Brush
         {
             get { return _brush; }
             set { _brush = value; }
         }
-        private Brush _brush = new SolidBrush(Color.Black);
+        private Brush _brush = new SolidColorBrush(Colors.Black);
 
         public TextRenderTask RenderTask { get; set; }
 
@@ -49,7 +51,7 @@ namespace DingusEngine.StandardComponents
 
         public override void Start()
         {
-            Name = "Test Text";
+            Name = "Text";
             RenderTask = new TextRenderTask(this, Owner.Transform);
 
             if (Visible)

@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace GameEngine.Actors
+namespace DingusEngine.Actors
 {
     internal class Player : Actor
     {
         ASprite sprite;
-        float speed = 5f;
+        float speed = 1f;
 
         public Player()
         {

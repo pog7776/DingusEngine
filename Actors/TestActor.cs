@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Numerics;
 using DingusEngine.GameActor;
 using DingusEngine.StandardComponents;
+using System.Windows;
+using System.Windows.Input;
 
 namespace DingusEngine.Actors
 {
@@ -27,8 +29,8 @@ namespace DingusEngine.Actors
 
         public override void Update()
         {
-            Point cursorPos = EGameEngine.Engine.PointToClient(Cursor.Position);
-            Transform.Position = new Vector3(cursorPos.X - (sprite.Dimensions.X / 2), cursorPos.Y - (sprite.Dimensions.Y / 2), 0);
+            //Point cursorPos = Mouse.GetPosition(App.Current.MainWindow);
+            //Transform.Position = new Vector3((float)cursorPos.X - (sprite.Dimensions.X / 2), (float)cursorPos.Y - (sprite.Dimensions.Y / 2), 0);
 
             if (sprite.Scale.X <= 0.3f)
             {

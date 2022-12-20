@@ -13,6 +13,8 @@ namespace DingusEngine.GameActor
         public T? CreateActor<T>() where T : new();
         public void AddActor(IActor actor);
 
+        public void Update();
+
         //TODO Find actor functions
     }
 }

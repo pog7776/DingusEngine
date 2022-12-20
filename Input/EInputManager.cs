@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace DingusEngine.Input
@@ -13,8 +12,8 @@ namespace DingusEngine.Input
         public  Dictionary<Key, IInputBinding> InputBindings => _inputBindings;
         private Dictionary<Key, IInputBinding> _inputBindings;
 
-        public  Dictionary<MouseButtons, IInputBinding> MouseBindings => _mouseBindings;
-        private Dictionary<MouseButtons, IInputBinding> _mouseBindings;
+        public  Dictionary<MouseButton, IInputBinding> MouseBindings => _mouseBindings;
+        private Dictionary<MouseButton, IInputBinding> _mouseBindings;
 
         private int frame = 0;
         private int _pollRate = 1;
@@ -27,11 +26,11 @@ namespace DingusEngine.Input
         public EInputManager()
         {
             _inputBindings = new Dictionary<Key, IInputBinding>();
-            _mouseBindings = new Dictionary<MouseButtons, IInputBinding>();
+            _mouseBindings = new Dictionary<MouseButton, IInputBinding>();
 
-            foreach (MouseButtons mb in Enum.GetValues(typeof(MouseButtons)))
+            foreach (MouseButton mb in Enum.GetValues(typeof(MouseButton)))
             {
-                if (!MouseBindings.ContainsKey(mb) && mb != MouseButtons.None)
+                if (!MouseBindings.ContainsKey(mb))
                 {
                     _mouseBindings.Add(mb, new EInputBinding(mb));
                 }
@@ -58,9 +57,9 @@ namespace DingusEngine.Input
         private void HandleMouse()
         {
             // On KeyDown and KeyUp
-            foreach (KeyValuePair<MouseButtons, IInputBinding> mb in MouseBindings)
+            foreach (KeyValuePair<MouseButton, IInputBinding> mb in MouseBindings)
             {
-                if((Control.MouseButtons & mb.Key) == mb.Key)
+                if ((MouseButtonState)mb.Key == MouseButtonState.Pressed)
                 {
                     MouseBindings[mb.Key].UpdatePressed(true);
                 }
@@ -79,9 +78,9 @@ namespace DingusEngine.Input
             if (frame >= PollRate)
             {
                 //foreach (Key k in Enum.GetValues(typeof(Key)))
-                foreach (KeyValuePair<MouseButtons, IInputBinding> mb in MouseBindings)
+                foreach (KeyValuePair<MouseButton, IInputBinding> mb in MouseBindings)
                 {
-                    if ((Control.MouseButtons & mb.Key) == mb.Key)
+                    if ((MouseButtonState)mb.Key == MouseButtonState.Pressed)
                     {
                         MouseBindings[mb.Key].OnKeyHeldActions.ForEach(x => x?.Invoke());
                     }
@@ -132,11 +131,11 @@ namespace DingusEngine.Input
         public void UnregisterOnKeyUp(Key k, Action action)     => InputBindings[k].UnregisterOnKeyUp(action);
 
         // Mouse Binding
-        public void OnKeyHeld(MouseButtons mb, Action action)           => MouseBindings[mb].OnKeyHeld(action);
-        public void UnregisterOnKeyHeld(MouseButtons mb, Action action) => MouseBindings[mb].UnregisterOnKeyHeld(action);
-        public void OnKeyDown(MouseButtons mb, Action action)           => MouseBindings[mb].OnKeyDown(action);
-        public void UnregisterOnKeyDown(MouseButtons mb, Action action) => MouseBindings[mb].UnregisterOnKeyDown(action);
-        public void OnKeyUp(MouseButtons mb, Action action)             => MouseBindings[mb].OnKeyUp(action);
-        public void UnregisterOnKeyUp(MouseButtons mb, Action action)   => MouseBindings[mb].UnregisterOnKeyUp(action);
+        public void OnKeyHeld(MouseButton mb, Action action)           => MouseBindings[mb].OnKeyHeld(action);
+        public void UnregisterOnKeyHeld(MouseButton mb, Action action) => MouseBindings[mb].UnregisterOnKeyHeld(action);
+        public void OnKeyDown(MouseButton mb, Action action)           => MouseBindings[mb].OnKeyDown(action);
+        public void UnregisterOnKeyDown(MouseButton mb, Action action) => MouseBindings[mb].UnregisterOnKeyDown(action);
+        public void OnKeyUp(MouseButton mb, Action action)             => MouseBindings[mb].OnKeyUp(action);
+        public void UnregisterOnKeyUp(MouseButton mb, Action action)   => MouseBindings[mb].UnregisterOnKeyUp(action);
     }
 }

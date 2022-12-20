@@ -1,10 +1,8 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace DingusEngine.Input
@@ -23,8 +21,8 @@ namespace DingusEngine.Input
         // Check out Program OnResize and how that is bound in the constructor if you forget - you silly billy!
 
         // Mouse button
-        public MouseButtons MouseBind => _mouseBind;
-        private MouseButtons _mouseBind;
+        public MouseButton MouseBind => _mouseBind;
+        private MouseButton _mouseBind;
 
         // All actions to invoke on key held
         public List<Action> OnKeyHeldActions => _onKeyHeld;
@@ -52,7 +50,7 @@ namespace DingusEngine.Input
             _isPressed = false;
         }
 
-        public EInputBinding(MouseButtons mb)
+        public EInputBinding(MouseButton mb)
         {
             _mouseBind = mb;
             _onKeyHeld = new List<Action>();

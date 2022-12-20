@@ -19,6 +19,14 @@ namespace DingusEngine.GameActor
             _actors = new List<IActor>();
         }
 
+        public void Update()
+        {
+            foreach (IActor actor in Actors)
+            {
+                actor.Update();
+            }
+        }
+
         public T? CreateActor<T>() where T : new()
         {
             _actors ??= new List<IActor>();

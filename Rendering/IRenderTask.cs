@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DingusEngine.Rendering
 {
@@ -11,6 +12,6 @@ namespace DingusEngine.Rendering
     {
         public ATransform Transform { get; }
 
-        public void Action(Graphics g);
+        public void Action(DrawingContext g);
     }
 }

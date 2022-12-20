@@ -4,9 +4,13 @@ using DingusEngine.StandardComponents;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.TextFormatting;
 
 namespace DingusEngine.Rendering
 {
@@ -26,9 +30,23 @@ namespace DingusEngine.Rendering
             _transform = transform;
         }
 
-        public void Action(Graphics g)
+        //public void Action(DrawingContext g)
+        public void Action(DrawingContext g)
         {
-            g.DrawString(TextRender.Text, TextRender.Font, TextRender.Brush, Transform.Position.X, Transform.Position.Y);
+            //g.DrawText(TextRender.Text, TextRender.Font, TextRender.Brush, Transform.Position.X, Transform.Position.Y);
+            DrawingVisual drawingVisual = new DrawingVisual();
+            DrawingContext drawingContext = drawingVisual.RenderOpen();
+
+            drawingContext.DrawText(
+                new FormattedText(TextRender.Text,
+                CultureInfo.GetCultureInfo("en-us"),
+                FlowDirection.LeftToRight,
+                TextRender.Font,
+                36, TextRender.Brush),
+                new System.Windows.Point(Transform.Position.X, Transform.Position.Y));
+
+            // Close the DrawingContext to persist changes to the DrawingVisual.
+            drawingContext.Close();
         }
     }
 }
