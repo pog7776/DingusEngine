@@ -81,7 +81,8 @@ namespace DingusEngine.StandardComponents
             {
                 //Image = Image.FromFile(path);
 
-                Image.Source = new BitmapImage(new Uri(@"file:///" + Directory.GetCurrentDirectory() + "\\" + path));
+                //Image.Source = new BitmapImage(new Uri(@"file:///" + Directory.GetCurrentDirectory() + "\\" + path));
+                Image.Source = new BitmapImage(new Uri(path, UriKind.Relative));
                 //Image.Source = new BitmapImage(new Uri(path));
 
                 //FileStream fileStream =

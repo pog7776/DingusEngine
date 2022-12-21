@@ -59,6 +59,8 @@ namespace DingusEngine.Input
             _isPressed = false;
         }
 
+        // TODO Re-work this into their own function and set _lastPressedState
+        [Obsolete("Will be re-worked into Call(KeyEvent).")]
         public void CallActions()
         {
             if (IsPressed)
@@ -70,7 +72,22 @@ namespace DingusEngine.Input
                 OnKeyUpActions.ForEach(a => a?.Invoke());
             }
 
-            //TODO Redundant now?
+            _lastPressedState = IsPressed;
+        }
+
+        public void CallHeld()
+        {
+            OnKeyHeldActions.ForEach(a => a?.Invoke());
+            _lastPressedState = IsPressed;
+        }
+        public void CallDown()
+        {
+            OnKeyDownActions.ForEach(a => a?.Invoke());
+            _lastPressedState = IsPressed;
+        }
+        public void CallUp()
+        {
+            OnKeyUpActions.ForEach(a => a?.Invoke());
             _lastPressedState = IsPressed;
         }
 

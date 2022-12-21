@@ -18,6 +18,10 @@ namespace DingusEngine.Input
         public bool IsPressed { get; }
         public bool KeyStateChange { get; }
 
+        public void CallHeld();
+        public void CallDown();
+        public void CallUp();
+
         public void OnKeyHeld(Action action);
         public void UnregisterOnKeyHeld(Action action);
         public void OnKeyDown(Action action);

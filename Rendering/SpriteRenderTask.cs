@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 
 namespace DingusEngine.Rendering
 {
@@ -27,18 +28,18 @@ namespace DingusEngine.Rendering
         }
         private ATransform _transform;
 
-        public Canvas Bounds
+        public Canvas RenderCanvas
         {
-            get { return _bounds; }
-            set { _bounds = value; }
+            get { return _renderCanvas; }
+            set { _renderCanvas = value; }
         }
-        private Canvas _bounds;
+        private Canvas _renderCanvas;
 
         public SpriteRenderTask(ASprite sprite, ATransform transform)
         {
             _sprite = sprite;
             _transform = transform;
-            _bounds= new Canvas();
+            _renderCanvas= new Canvas();
             //Rect imageBounds = new Rect(Transform.Position.X, Transform.Position.Y, Sprite.Image.Source.Width * Sprite.Scale.X, Sprite.Image.Source.Height * Sprite.Scale.Y);
             //_bounds.Width = imageBounds.Width;
             //_bounds.Height = imageBounds.Height;
@@ -97,6 +98,7 @@ namespace DingusEngine.Rendering
 
         public void Action(Canvas c)
         {
+            //Parallel.Invoke(delegate { });
             if (!c.Children.Contains(Sprite.Image))
             {
                 c.Children.Add(Sprite.Image);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace DingusEngine.Input
 {
@@ -28,7 +29,8 @@ namespace DingusEngine.Input
             EGameEngine.Engine.KeyDown += HandleKeyboard;
             EGameEngine.Engine.KeyUp += HandleKeyboard;
             //EGameEngine.Engine.MouseDown += Update;
-
+            //EGameEngine.Engine.PreviewKeyDown += Window_PreviewKeyDown;
+            //EGameEngine.Engine.PreviewKeyDown += Window_PreviewKeyUp;
 
             _inputBindings = new Dictionary<Key, IInputBinding>();
             _mouseBindings = new Dictionary<MouseButton, IInputBinding>();
@@ -54,6 +56,11 @@ namespace DingusEngine.Input
         {
             //HandleMouse(e);
             //HandleKeyboard(e);
+
+            //foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
+            //{
+            //    if(k.Key.IsDown && !InputBindings[e.Key].KeyStateChange)
+            //}
 
             time += EGameEngine.Engine.DeltaTime;
             if(time > PollRate) { time = 0; }
@@ -95,31 +102,56 @@ namespace DingusEngine.Input
 
         private void HandleKeyboard(object sender, KeyEventArgs e)
         {
-            // On KeyDown and KeyUp
-            //foreach (KeyValuePair<Key, IInputBinding> k in InputBindings)
-            //{
-                //IInputBinding k = InputBindings[e.Key];
-                if (e.IsDown)
-                {
-                    InputBindings[e.Key].UpdatePressed(true);
-                }
-                else
-                {
-                    InputBindings[e.Key].UpdatePressed(false);
-                }
+            // Update Binding state
+            InputBindings[e.Key].UpdatePressed(e.IsDown);
 
-                if (InputBindings[e.Key].KeyStateChange)
-                {
-                    InputBindings[e.Key].CallActions();
-                }
-            //}
+            // On KeyDown and KeyUp
+            if (e.IsDown)
+            {
+                InputBindings[e.Key].CallDown();
+            }
+            else
+            {
+                InputBindings[e.Key].CallUp();
+            }
 
             // Call held actions
             //if (time >= PollRate)
-            if(e.IsRepeat)
+            if(e.IsDown && !InputBindings[e.Key].KeyStateChange)
             {
-                InputBindings[e.Key].OnKeyHeldActions.ForEach(x => x?.Invoke());
+                InputBindings[e.Key].CallHeld();
             }
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Check if the key is already down
+            if (InputBindings[e.Key].IsPressed)
+            {
+                // The key is already down, so generate a repeat key press event
+                InputBindings[e.Key].CallHeld();
+                return;
+            }
+
+            // The key is not already down, so start a timer to generate repeat key press events
+            InputBindings[e.Key].UpdatePressed(e.IsDown);
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(6); // Set the repeat rate to 250ms
+            timer.Tick += (s, args) =>
+            {
+                // Generate a repeat key press event
+                InputBindings[e.Key].CallHeld();
+            };
+            timer.Start();
+
+            // Handle the initial key press event
+            InputBindings[e.Key].CallHeld();
+        }
+
+        private void Window_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            // Reset the key down state when the key is released
+            InputBindings[e.Key].UpdatePressed(e.IsDown);
         }
 
         // Keyboard Binding

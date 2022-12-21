@@ -23,8 +23,10 @@ namespace DingusEngine.GameActor
         {
             foreach (IActor actor in Actors)
             {
+                //Parallel.Invoke(delegate { actor.Update(); });
                 actor.Update();
             }
+            //Parallel.ForEach<IActor>(Actors, actor => actor.Update());
         }
 
         public T? CreateActor<T>() where T : new()

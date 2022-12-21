@@ -8,33 +8,38 @@ using DingusEngine.Rendering;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
+using System.Windows.Controls;
 
 namespace DingusEngine.StandardComponents
 {
     internal class ATextRender : Component
     {
-        public string Text { get; set; }
-
-        public Typeface Font
-        {
-            get { return _font; }
-            set { _font = value; }
+        public string Text {
+            get { return TextBlock.Text; }
+            set { TextBlock.Text = value; }
         }
-        private Typeface _font = new Typeface("Arial");
 
-        public int FontSize
-        {
-            get { return _fontSize; }
-            set { _fontSize = value; }
-        }
-        private int _fontSize = 12;
+        public TextBlock TextBlock { get; set; }
+        private TextBlock _textBlock;
 
-        public Brush Brush
+        public FontFamily Font
         {
-            get { return _brush; }
-            set { _brush = value; }
+            get { return TextBlock.FontFamily; }
+            set { TextBlock.FontFamily = value; }
         }
-        private Brush _brush = new SolidColorBrush(Colors.Black);
+
+        public double FontSize
+        {
+            get { return TextBlock.FontSize; }
+            set { TextBlock.FontSize = value; }
+        }
+
+        //public Brush Brush
+        //{
+        //    get { return _brush; }
+        //    set { _brush = value; }
+        //}
+        //private Brush _brush = new SolidColorBrush(Colors.Black);
 
         public TextRenderTask RenderTask { get; set; }
 
@@ -59,6 +64,9 @@ namespace DingusEngine.StandardComponents
         public override void Start()
         {
             Name = "Text";
+            TextBlock = new TextBlock();
+            Font = new FontFamily("Arial");
+            FontSize= 12;
             RenderTask = new TextRenderTask(this, Owner.Transform);
 
             if (Visible)

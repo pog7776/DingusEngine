@@ -5,6 +5,8 @@ using DingusEngine.Rendering;
 using DingusEngine.StandardComponents;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,6 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
@@ -39,7 +42,7 @@ namespace DingusEngine
         private GameState gameState;
 
         // The current frame rate
-        private int frameRate;
+        private int tickRate;
 
         // The time elapsed since the last frame
         public float DeltaTime => _deltaTime;
@@ -56,6 +59,8 @@ namespace DingusEngine
         public EGameEngine()
         {
             InitializeComponent();
+            Debug.WriteLine("Loading with RenderCapability Tier: " + (RenderCapability.Tier >> 16).ToString() + " (" + RenderCapability.Tier + ")");
+
             Engine = this;
             actorManager = new EActorManager();
             InputManager = new EInputManager();
@@ -69,6 +74,7 @@ namespace DingusEngine
             _buffer = new DrawingVisual();
             _canvas = (Canvas)this.FindName("RenderLayer");
             RenderHandler = new ERenderHandler();
+            CompositionTarget.Rendering += OnFrame;
 
             this.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
             //RenderOptions.EdgeModeProperty = EdgeMode.Aliased;
@@ -76,11 +82,11 @@ namespace DingusEngine
 
             // Initialize the game state and frame rate
             gameState = GameState.Running;
-            frameRate = 60;
+            tickRate = 60;
 
             // Initialize the timer
             gameTimer = new DispatcherTimer();
-            gameTimer.Interval = new TimeSpan(1000 / frameRate);
+            gameTimer.Interval = new TimeSpan(10000 / tickRate);
             gameTimer.Tick += OnTick;
             gameTimer.Start();
 
@@ -96,7 +102,7 @@ namespace DingusEngine
 
             MovingActor ma = actorManager.CreateActor<MovingActor>();
 
-            //TextActor txa = actorManager.CreateActor<TextActor>();
+            TextActor txa = actorManager.CreateActor<TextActor>();
 
             Player player = actorManager.CreateActor<Player>();
 
@@ -120,7 +126,8 @@ namespace DingusEngine
         private void OnTick(object sender, EventArgs e)
         {
             // Update the elapsed time
-            _deltaTime = (float)gameTimer.Interval.TotalMilliseconds;
+            // Moved to OnFrame
+            //_deltaTime = (float)gameTimer.Interval.TotalMilliseconds;
 
             // Update the game state
             switch (gameState)
@@ -129,15 +136,15 @@ namespace DingusEngine
                     // Update the game
                     Update();
                     // Render the game
-                    Render();
+                    //Render();
                     break;
                 case GameState.Paused:
                     // Render the pause screen
-                    RenderPause();
+                    //RenderPause();
                     break;
                 case GameState.GameOver:
                     // Render the game over screen
-                    RenderGameOver();
+                    //RenderGameOver();
                     break;
             }
 
@@ -155,7 +162,24 @@ namespace DingusEngine
             actorManager.Update();
         }
 
+        private void OnFrame(object sender, EventArgs e)
+        {
+            // Update the elapsed time
+            _deltaTime = (float)gameTimer.Interval.TotalMilliseconds;
+
+            // Update the game state
+            switch (gameState)
+            {
+                case GameState.Running:
+                    // Render the game
+                    Render();
+                    break;
+                    // Other game states here...
+            }
+        }
+
         // Render the game
+        // TODO Create a RenderHandler
         private void Render()
         {
             /*
@@ -195,8 +219,13 @@ namespace DingusEngine
 
             foreach (IRenderTask task in RenderHandler.Tasks)
             {
-                task.Action(_canvas);
+                Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+                {
+                    task.Action(_canvas);
+                }));
+                //task.Action(_canvas);
             }
+            //Parallel.ForEach<IRenderTask>(RenderHandler.Tasks, (task) => { task.Action(_canvas); });
         }
 
         // Render the pause screen
